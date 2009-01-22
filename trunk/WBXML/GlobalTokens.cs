@@ -22,9 +22,9 @@ using System.Text;
 
 namespace WBXML
 {
-    class GlobalTokens
+    public class GlobalTokens
     {
-        Dictionary<byte, Names> tokenDictionary = new Dictionary<byte, Names>();
+        private Dictionary<byte, Names> tokenDictionary = new Dictionary<byte, Names>();
 
         public enum Names
         {

@@ -26,6 +26,9 @@ namespace WBXML
     {
         private Dictionary<byte, string> tokenDictionary = new Dictionary<byte, string>();
 
+        //Create a second dictionary for speeding up encoding
+        private Dictionary<string, byte> keyDictionary;
+
         public void AddToken(byte identifier, String tokenName)
         {
             tokenDictionary.Add(identifier, tokenName);
@@ -39,6 +42,35 @@ namespace WBXML
         public virtual string GetToken(byte byteItem)
         {
             return tokenDictionary[byteItem];
+        }
+
+        public virtual bool ContainsKey(string tokenValue)
+        {
+            if (keyDictionary == null)
+            {
+                CreateKeyDictionary();
+            }
+
+            return keyDictionary.ContainsKey(tokenValue);
+        }
+
+        public virtual byte GetKey(string tokenValue)
+        {
+            if (keyDictionary == null)
+            {
+                CreateKeyDictionary();
+            }
+
+            return keyDictionary[tokenValue];
+        }
+
+        private void CreateKeyDictionary()
+        {
+            keyDictionary = new Dictionary<string, byte>();
+            foreach (KeyValuePair<byte, string> pair in tokenDictionary)
+            {
+                keyDictionary.Add(pair.Value, pair.Key);
+            }
         }
     }
 }

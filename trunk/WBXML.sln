@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WBXML", "WBXML\WBXML.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncMLDemo", "SyncMLDemo\SyncMLDemo.csproj", "{323A0EF7-2F8F-435D-B2D3-F8D26A517A24}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WBXMLSpecifcationDemo", "WBXMLSpecifcationDemo\WBXMLSpecifcationDemo.csproj", "{1BB58E9B-C842-4B45-8CA2-5281908E2B41}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{323A0EF7-2F8F-435D-B2D3-F8D26A517A24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{323A0EF7-2F8F-435D-B2D3-F8D26A517A24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{323A0EF7-2F8F-435D-B2D3-F8D26A517A24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BB58E9B-C842-4B45-8CA2-5281908E2B41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BB58E9B-C842-4B45-8CA2-5281908E2B41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BB58E9B-C842-4B45-8CA2-5281908E2B41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BB58E9B-C842-4B45-8CA2-5281908E2B41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
