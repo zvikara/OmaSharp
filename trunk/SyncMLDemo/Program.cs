@@ -30,7 +30,7 @@ namespace SyncMLDemo
             byte[] byteArray = new byte[] { }; //The WBXML which is used for the SyncML protocol
            
             WBXMLDocument wbxmlDocument = new WBXMLDocument();
-            wbxmlDocument.CodeSpace = new SyncMLCodeSpace();
+            wbxmlDocument.TagCodeSpace = new SyncMLCodeSpace();
             wbxmlDocument.LoadBytes(byteArray);
             Console.WriteLine(wbxmlDocument.OuterXml);
             Console.ReadLine();    

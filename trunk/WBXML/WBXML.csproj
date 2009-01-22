@@ -42,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttributeCodePage.cs" />
+    <Compile Include="AttributeCodeSpace.cs" />
+    <Compile Include="AttributeStart.cs" />
     <Compile Include="CodePage.cs" />
     <Compile Include="CodeSpace.cs" />
     <Compile Include="EmptyCodePage.cs" />

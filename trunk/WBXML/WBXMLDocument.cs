@@ -28,7 +28,8 @@ namespace WBXML
     {
         private GlobalTokens globalTokens = new GlobalTokens();
         
-        private CodeSpace codeSpace = new EmptyCodeSpace();
+        private CodeSpace tagCodeSpace = new EmptyCodeSpace();
+        private AttributeCodeSpace attributeCodeSpace = new AttributeCodeSpace();
         private Encoding textEncoding = Encoding.UTF8;
         private double versionNumber;
         private int publicIdentifier;
@@ -69,15 +70,27 @@ namespace WBXML
             }
         }
 
-        public CodeSpace CodeSpace
+        public CodeSpace TagCodeSpace
         {
             get
             {
-                return this.codeSpace;
+                return this.tagCodeSpace;
             }
             set
             {
-                this.codeSpace = value;
+                this.tagCodeSpace = value;
+            }
+        }
+
+        public AttributeCodeSpace AttributeCodeSpace
+        {
+            get
+            {
+                return this.attributeCodeSpace;
+            }
+            set
+            {
+                this.attributeCodeSpace = value;
             }
         }
 
@@ -190,9 +203,9 @@ namespace WBXML
                     byteItem &= 63;
 
                     string tagValue;
-                    if (codeSpace.GetCodePage(codePage).ContainsToken(byteItem))
+                    if (tagCodeSpace.GetCodePage(codePage).ContainsToken(byteItem))
                     {
-                        tagValue = codeSpace.GetCodePage(codePage).GetToken(byteItem);
+                        tagValue = tagCodeSpace.GetCodePage(codePage).GetToken(byteItem);
                     }
                     else
                     {
@@ -244,9 +257,9 @@ namespace WBXML
                     case XmlNodeType.Element:
                         bool hasAttributes = node.Attributes.Count > 0;
                         bool hasContent = node.HasChildNodes;
-                        if (codeSpace.GetCodePage(0).ContainsKey(node.Name))
+                        if (tagCodeSpace.GetCodePage(0).ContainsKey(node.Name))
                         {
-                            byte keyValue = codeSpace.GetCodePage(0).GetKey(node.Name);
+                            byte keyValue = tagCodeSpace.GetCodePage(0).GetKey(node.Name);
                             if (hasAttributes)
                             {
                                 keyValue |= 128;

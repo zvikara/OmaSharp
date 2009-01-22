@@ -29,7 +29,7 @@ namespace WBXML
         //Create a second dictionary for speeding up encoding
         private Dictionary<string, byte> keyDictionary;
 
-        public void AddToken(byte identifier, String tokenName)
+        public void AddToken(byte identifier, string tokenName)
         {
             tokenDictionary.Add(identifier, tokenName);
         }

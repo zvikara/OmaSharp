@@ -19,7 +19,6 @@
 // Encoding sample which can be found inside section 8.1 of the WBXML Specification
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using WBXML;
 
@@ -29,32 +28,42 @@ namespace WBXMLSpecifcationDemo
     {
         static void Main(string[] args)
         {
-            String simpleContent = "<?xml version=\"1.0\"?>" + 
-                                    "<!DOCTYPE XYZ [" +
-                                    "<!ELEMENT XYZ (CARD)+>" +
-                                    "<!ELEMENT CARD (#PCDATA | BR)*>" +
-                                    "<!ELEMENT BR EMPTY>" +
-                                    "<!ENTITY nbsp \"&#160;\">" + 
-                                    "]>" + 
-                                    "<XYZ><CARD> X &amp; Y<BR/> X&nbsp;=&nbsp;1 </CARD></XYZ>";
             WBXMLDocument simpleWBXMLDocument = new WBXMLDocument();
-            simpleWBXMLDocument.LoadXml(simpleContent);
+            simpleWBXMLDocument.Load("SimpleXML.xml");
             simpleWBXMLDocument.VersionNumber = 1.3;
-            simpleWBXMLDocument.CodeSpace = new SimpleCodeSpace();
+            simpleWBXMLDocument.TagCodeSpace = new SimpleCodeSpace();
+
+            Console.WriteLine("Simple: WBXML output");
+            Console.WriteLine(PrintHex(simpleWBXMLDocument.GetBytes()));
             
-            byte[] bytes = simpleWBXMLDocument.GetBytes();
+            WBXMLDocument decodeSimpleWBXMLDocument = new WBXMLDocument();
+            decodeSimpleWBXMLDocument.TagCodeSpace = new SimpleCodeSpace();
+            decodeSimpleWBXMLDocument.LoadBytes(simpleWBXMLDocument.GetBytes());
+
+            Console.WriteLine("Simple: XML output");            
+            Console.WriteLine(decodeSimpleWBXMLDocument.OuterXml);
+
+            WBXMLDocument extendedWBXMLDocument = new WBXMLDocument();
+            extendedWBXMLDocument.Load("ExtendedXML.xml");
+            extendedWBXMLDocument.VersionNumber = 1.3;
+            extendedWBXMLDocument.TagCodeSpace = new ExtendedCodeSpace();
+            extendedWBXMLDocument.AttributeCodeSpace = new ExtendedAttributeCodeSpace();
+
+            Console.WriteLine("Extended: WBXML output");
+            Console.WriteLine(PrintHex(extendedWBXMLDocument.GetBytes()));
+
+            Console.ReadLine();
+        }
+
+        private static string PrintHex(byte[] bytes)
+        {
+            StringBuilder stringReturn = new StringBuilder();
             foreach (byte byteItem in bytes)
             {
-                Console.Write(byteItem.ToString("X2"));
-                Console.Write(" ");
+                stringReturn.Append(byteItem.ToString("X2"));
+                stringReturn.Append(" ");
             }
-            
-            WBXMLDocument decodeWBXMLDocument = new WBXMLDocument();
-            decodeWBXMLDocument.CodeSpace = new SimpleCodeSpace();
-            decodeWBXMLDocument.LoadBytes(bytes);
-            
-            Console.WriteLine(decodeWBXMLDocument.OuterXml);
-            Console.ReadLine();
+            return stringReturn.ToString();
         }
     }
 }

@@ -19,7 +19,6 @@
 // Encoding sample which can be found inside section 8.1 of the WBXML Specification
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using WBXML;
 
