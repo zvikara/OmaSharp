@@ -24,6 +24,8 @@ namespace WBXML
 {
     public class CodeSpace
     {
+        private int codepage = 0;
+
         private List<CodePage> codePages = new List<CodePage>();
 
         public void AddCodePage(CodePage codePage)
@@ -31,9 +33,14 @@ namespace WBXML
             codePages.Add(codePage);
         }
 
-        public virtual CodePage GetCodePage(int codePageId)
+        public virtual CodePage GetCodePage()
         {
-            return codePages[codePageId];
+            return codePages[codepage];
+        }
+
+        public void SwitchCodePage(int codepage)
+        {
+            this.codepage = codepage;
         }
     }
 }

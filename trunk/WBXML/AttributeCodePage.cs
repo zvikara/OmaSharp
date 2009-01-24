@@ -71,6 +71,24 @@ namespace WBXML
             }
         }
 
+        public virtual bool ContainsAttributeStartName(string name)
+        {
+            return ContainsAttributeStartName(name, "");
+        }
+
+        public virtual bool ContainsAttributeStartName(string name, string prefix)
+        {
+            if(attrStartNameDictionary.ContainsKey(name)){
+                return attrStartNameDictionary[name].ContainsKey(prefix);
+            }
+            return false;
+        }
+
+        public virtual bool ContainsAttributeValueName(string attributeValue)
+        {
+            return attrValueNameDictionary.ContainsKey(attributeValue);
+        }
+
         public virtual string GetAttributeValue(byte token)
         {
             return attrValueTokenDictionary[token];
@@ -88,14 +106,7 @@ namespace WBXML
 
         public virtual byte GetAttributeStartToken(string name, string prefix)
         {
-            if (attrStartNameDictionary.ContainsKey(name))
-            {
-                Dictionary<string, byte> internalValueTokenDictionary = attrStartNameDictionary[name];
-                return internalValueTokenDictionary[prefix];
-            }
-
-            //TODO: throw an exception
-            return 0;
+            return attrStartNameDictionary[name][prefix];
         }
 
         public virtual byte GetAttributeValueToken(string attributeValue)

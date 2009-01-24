@@ -24,7 +24,7 @@ namespace WBXML
 {
     class EmptyCodeSpace : CodeSpace
     {
-        public override CodePage GetCodePage(int codePageId)
+        public override CodePage GetCodePage()
         {
             return new EmptyCodePage();
         }

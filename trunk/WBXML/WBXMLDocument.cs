@@ -102,7 +102,9 @@ namespace WBXML
         #region Decoder
         private void DecodeWBXML(byte[] bytes)
         {
-            int codePage = 0;
+            tagCodeSpace.SwitchCodePage(0);
+            attributeCodeSpace.SwitchCodePage(0);
+
             XmlNode activeNode = this;
 
             Queue<byte> byteQueue = new Queue<byte>(bytes);
@@ -133,7 +135,7 @@ namespace WBXML
                     switch (globalToken)
                     {
                         case GlobalTokens.Names.SWITCH_PAGE:
-                            codePage = (int)byteQueue.Dequeue();
+                            tagCodeSpace.SwitchCodePage((int)byteQueue.Dequeue());
                             break;
                         case GlobalTokens.Names.END:
                             activeNode = activeNode.ParentNode;
@@ -203,9 +205,9 @@ namespace WBXML
                     byteItem &= 63;
 
                     string tagValue;
-                    if (tagCodeSpace.GetCodePage(codePage).ContainsToken(byteItem))
+                    if (tagCodeSpace.GetCodePage().ContainsToken(byteItem))
                     {
-                        tagValue = tagCodeSpace.GetCodePage(codePage).GetName(byteItem);
+                        tagValue = tagCodeSpace.GetCodePage().GetName(byteItem);
                     }
                     else
                     {
@@ -268,9 +270,9 @@ namespace WBXML
                 case XmlNodeType.Element:
                     bool hasAttributes = node.Attributes.Count > 0;
                     bool hasContent = node.HasChildNodes;
-                    if (tagCodeSpace.GetCodePage(0).ContainsName(node.Name))
+                    if (tagCodeSpace.GetCodePage().ContainsName(node.Name))
                     {
-                        byte keyValue = tagCodeSpace.GetCodePage(0).GetToken(node.Name);
+                        byte keyValue = tagCodeSpace.GetCodePage().GetToken(node.Name);
                         if (hasAttributes)
                         {
                             keyValue |= 128;
@@ -288,6 +290,7 @@ namespace WBXML
                         {
                             bytesList.AddRange(EncodeNode(attribute));
                         }
+                        bytesList.Add((byte)GlobalTokens.Names.END);
                     }
 
                     if (hasContent)
@@ -311,6 +314,19 @@ namespace WBXML
                     break;
                 case XmlNodeType.Attribute:
                     Console.WriteLine(node.Name);
+                    Console.WriteLine(node.Value);
+                    if (attributeCodeSpace.GetCodePage().ContainsAttributeStartName(node.Name, node.Value))
+                    {
+                        bytesList.Add(attributeCodeSpace.GetCodePage().GetAttributeStartToken(node.Name, node.Value));
+                    }
+                    else if (attributeCodeSpace.GetCodePage().ContainsAttributeStartName(node.Name))
+                    {
+                        bytesList.Add(attributeCodeSpace.GetCodePage().GetAttributeStartToken(node.Name));
+                    }
+                    else
+                    {
+                        Console.WriteLine("Unknown attribute");
+                    }
                     break;
             }
 

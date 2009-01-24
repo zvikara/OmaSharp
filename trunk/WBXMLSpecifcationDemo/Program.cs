@@ -56,7 +56,7 @@ namespace WBXMLSpecifcationDemo
 
             WBXMLDocument decodeExtendedWBXMLDocument = new WBXMLDocument();
             decodeExtendedWBXMLDocument.TagCodeSpace = new ExtendedCodeSpace();
-            decodeExtendedWBXMLDocument.AttributeCodeSpace = new AttributeCodeSpace();
+            decodeExtendedWBXMLDocument.AttributeCodeSpace = new ExtendedAttributeCodeSpace();
             decodeExtendedWBXMLDocument.LoadBytes(extendedBytes);
 
             Console.WriteLine("Extended: XML output");
