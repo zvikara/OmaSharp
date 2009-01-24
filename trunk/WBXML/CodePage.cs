@@ -25,52 +25,32 @@ namespace WBXML
     public class CodePage
     {
         private Dictionary<byte, string> tokenDictionary = new Dictionary<byte, string>();
+        private Dictionary<string, byte> nameDictionary = new Dictionary<string,byte>();
 
-        //Create a second dictionary for speeding up encoding
-        private Dictionary<string, byte> keyDictionary;
-
-        public void AddToken(byte identifier, string tokenName)
+        public void AddToken(byte token, string name)
         {
-            tokenDictionary.Add(identifier, tokenName);
+            tokenDictionary.Add(token, name);
+            nameDictionary.Add(name, token);
         }
 
-        public virtual bool ContainsToken(byte byteItem)
+        public virtual bool ContainsToken(byte token)
         {
-            return tokenDictionary.ContainsKey(byteItem);
+            return tokenDictionary.ContainsKey(token);
         }
 
-        public virtual string GetToken(byte byteItem)
+        public virtual bool ContainsName(string name)
         {
-            return tokenDictionary[byteItem];
+            return nameDictionary.ContainsKey(name);
+        } 
+
+        public virtual string GetName(byte token)
+        {
+            return tokenDictionary[token];
         }
 
-        public virtual bool ContainsKey(string tokenValue)
+        public virtual byte GetToken(string name)
         {
-            if (keyDictionary == null)
-            {
-                CreateKeyDictionary();
-            }
-
-            return keyDictionary.ContainsKey(tokenValue);
-        }
-
-        public virtual byte GetKey(string tokenValue)
-        {
-            if (keyDictionary == null)
-            {
-                CreateKeyDictionary();
-            }
-
-            return keyDictionary[tokenValue];
-        }
-
-        private void CreateKeyDictionary()
-        {
-            keyDictionary = new Dictionary<string, byte>();
-            foreach (KeyValuePair<byte, string> pair in tokenDictionary)
-            {
-                keyDictionary.Add(pair.Value, pair.Key);
-            }
+            return nameDictionary[name];
         }
     }
 }

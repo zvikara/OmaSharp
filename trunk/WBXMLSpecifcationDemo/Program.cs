@@ -34,11 +34,12 @@ namespace WBXMLSpecifcationDemo
             simpleWBXMLDocument.TagCodeSpace = new SimpleCodeSpace();
 
             Console.WriteLine("Simple: WBXML output");
-            Console.WriteLine(PrintHex(simpleWBXMLDocument.GetBytes()));
+            byte[] simpleBytes = simpleWBXMLDocument.GetBytes();
+            Console.WriteLine(PrintHex(simpleBytes));
             
             WBXMLDocument decodeSimpleWBXMLDocument = new WBXMLDocument();
             decodeSimpleWBXMLDocument.TagCodeSpace = new SimpleCodeSpace();
-            decodeSimpleWBXMLDocument.LoadBytes(simpleWBXMLDocument.GetBytes());
+            decodeSimpleWBXMLDocument.LoadBytes(simpleBytes);
 
             Console.WriteLine("Simple: XML output");            
             Console.WriteLine(decodeSimpleWBXMLDocument.OuterXml);
@@ -50,8 +51,16 @@ namespace WBXMLSpecifcationDemo
             extendedWBXMLDocument.AttributeCodeSpace = new ExtendedAttributeCodeSpace();
 
             Console.WriteLine("Extended: WBXML output");
-            Console.WriteLine(PrintHex(extendedWBXMLDocument.GetBytes()));
+            byte[] extendedBytes = extendedWBXMLDocument.GetBytes();
+            Console.WriteLine(PrintHex(extendedBytes));
 
+            WBXMLDocument decodeExtendedWBXMLDocument = new WBXMLDocument();
+            decodeExtendedWBXMLDocument.TagCodeSpace = new ExtendedCodeSpace();
+            decodeExtendedWBXMLDocument.AttributeCodeSpace = new AttributeCodeSpace();
+            decodeExtendedWBXMLDocument.LoadBytes(extendedBytes);
+
+            Console.WriteLine("Extended: XML output");
+            Console.WriteLine(decodeExtendedWBXMLDocument.OuterXml);
             Console.ReadLine();
         }
 

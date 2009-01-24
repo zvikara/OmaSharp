@@ -15,31 +15,51 @@
 // Open Mobile Alliance (http://www.openmobilealliance.org/)
 // Details about this specification can be found at
 // http://www.openmobilealliance.org/tech/affiliates/wap/wap-192-wbxml-20010725-a.pdf
-//
-// Encoding sample which can be found inside section 8.2 of the WBXML Specification
+
 using System;
 using System.Collections.Generic;
 using System.Text;
-using WBXML;
 
-namespace WBXMLSpecifcationDemo
+namespace WBXML
 {
-    public class ExtendedAttributeCodeSpace : AttributeCodeSpace
+    public class AttributeStart
     {
-        public ExtendedAttributeCodeSpace()
+        private string name;
+        private string prefix;
+
+        public AttributeStart(string name)
         {
-            AttributeCodePage codePage = new AttributeCodePage();
-            codePage.AddAttributeStart(0x05, "STYLE", "LIST");
-            codePage.AddAttributeStart(0x06, "TYPE");
-            codePage.AddAttributeStart(0x07, "TYPE", "TEXT");
-            codePage.AddAttributeStart(0x08, "URL", "http://");
-            codePage.AddAttributeStart(0x09, "NAME");
-            codePage.AddAttributeStart(0x0A, "KEY");
+            this.name = name;
+        }
 
-            codePage.AddAttributeValue(0x85, ".org");
-            codePage.AddAttributeValue(0x86, "ACCEPT");
+        public AttributeStart(string name, string prefix)
+        {
+            this.name = name;
+            this.prefix = prefix;
+        }
 
-            AddCodePage(codePage);
+        public string Name
+        {
+            get
+            {
+                return this.name;
+            }
+            set
+            {
+                this.name = value;
+            }
+        }
+
+        public string Prefix
+        {
+            get
+            {
+                return this.prefix;
+            }
+            set
+            {
+                this.prefix = value;
+            }
         }
     }
 }

@@ -205,7 +205,7 @@ namespace WBXML
                     string tagValue;
                     if (tagCodeSpace.GetCodePage(codePage).ContainsToken(byteItem))
                     {
-                        tagValue = tagCodeSpace.GetCodePage(codePage).GetToken(byteItem);
+                        tagValue = tagCodeSpace.GetCodePage(codePage).GetName(byteItem);
                     }
                     else
                     {
@@ -241,56 +241,77 @@ namespace WBXML
             //String table length (currently implemented as empty string table
             bytesList.Add(0x00);
 
-            bytesList.AddRange(EncodeNode(this));
+            bytesList.AddRange(EncodeNodes(this.ChildNodes));
 
             return bytesList.ToArray();
         }
 
-        private byte[] EncodeNode(XmlNode parentNode)
+        private byte[] EncodeNodes(XmlNodeList nodes)
         {
             List<byte> bytesList = new List<byte>();
 
-            foreach (XmlNode node in parentNode.ChildNodes)
+            foreach (XmlNode node in nodes)
             {
-                switch (node.NodeType)
-                {
-                    case XmlNodeType.Element:
-                        bool hasAttributes = node.Attributes.Count > 0;
-                        bool hasContent = node.HasChildNodes;
-                        if (tagCodeSpace.GetCodePage(0).ContainsKey(node.Name))
-                        {
-                            byte keyValue = tagCodeSpace.GetCodePage(0).GetKey(node.Name);
-                            if (hasAttributes)
-                            {
-                                keyValue |= 128;
-                            }
-                            if (hasContent)
-                            {
-                                keyValue |= 64;
-                            }
-                            bytesList.Add(keyValue);
-                        }
+                bytesList.AddRange(EncodeNode(node));
+            }
 
+            return bytesList.ToArray();
+        }
+
+        private byte[] EncodeNode(XmlNode node)
+        {
+            List<byte> bytesList = new List<byte>();
+
+            Console.WriteLine(node.NodeType);
+            switch (node.NodeType)
+            {
+                case XmlNodeType.Element:
+                    bool hasAttributes = node.Attributes.Count > 0;
+                    bool hasContent = node.HasChildNodes;
+                    if (tagCodeSpace.GetCodePage(0).ContainsName(node.Name))
+                    {
+                        byte keyValue = tagCodeSpace.GetCodePage(0).GetToken(node.Name);
+                        if (hasAttributes)
+                        {
+                            keyValue |= 128;
+                        }
                         if (hasContent)
                         {
-                            bytesList.AddRange(EncodeNode(node));
-                            bytesList.Add((byte)GlobalTokens.Names.END);
+                            keyValue |= 64;
                         }
-                        break;
-                    case XmlNodeType.Text:
-                        bytesList.Add((byte)GlobalTokens.Names.STR_I);
-                        bytesList.AddRange(textEncoding.GetBytes(node.Value));
-                        bytesList.Add(0x00);
-                        break;
-                    case XmlNodeType.EntityReference:
-                        bytesList.Add((byte)GlobalTokens.Names.ENTITY);
-                        XmlEntityReference reference = (XmlEntityReference)node;
-                        foreach (int stringItem in reference.InnerText.ToCharArray())
+                        bytesList.Add(keyValue);
+                    }
+
+                    if (hasAttributes)
+                    {
+                        foreach (XmlAttribute attribute in node.Attributes)
                         {
-                            bytesList.AddRange(GetMultiByte(stringItem));
+                            bytesList.AddRange(EncodeNode(attribute));
                         }
-                        break;
-                }
+                    }
+
+                    if (hasContent)
+                    {
+                        bytesList.AddRange(EncodeNodes(node.ChildNodes));
+                        bytesList.Add((byte)GlobalTokens.Names.END);
+                    }
+                    break;
+                case XmlNodeType.Text:
+                    bytesList.Add((byte)GlobalTokens.Names.STR_I);
+                    bytesList.AddRange(textEncoding.GetBytes(node.Value));
+                    bytesList.Add(0x00);
+                    break;
+                case XmlNodeType.EntityReference:
+                    bytesList.Add((byte)GlobalTokens.Names.ENTITY);
+                    XmlEntityReference reference = (XmlEntityReference)node;
+                    foreach (int stringItem in reference.InnerText.ToCharArray())
+                    {
+                        bytesList.AddRange(GetMultiByte(stringItem));
+                    }
+                    break;
+                case XmlNodeType.Attribute:
+                    Console.WriteLine(node.Name);
+                    break;
             }
 
             return bytesList.ToArray();

@@ -15,31 +15,25 @@
 // Open Mobile Alliance (http://www.openmobilealliance.org/)
 // Details about this specification can be found at
 // http://www.openmobilealliance.org/tech/affiliates/wap/wap-192-wbxml-20010725-a.pdf
-//
-// Encoding sample which can be found inside section 8.2 of the WBXML Specification
+
 using System;
 using System.Collections.Generic;
 using System.Text;
-using WBXML;
 
-namespace WBXMLSpecifcationDemo
+namespace WBXML
 {
-    public class ExtendedAttributeCodeSpace : AttributeCodeSpace
+    public class AttributeCodeSpace
     {
-        public ExtendedAttributeCodeSpace()
+        private List<AttributeCodePage> codePages = new List<AttributeCodePage>();
+
+        public void AddCodePage(AttributeCodePage codePage)
         {
-            AttributeCodePage codePage = new AttributeCodePage();
-            codePage.AddAttributeStart(0x05, "STYLE", "LIST");
-            codePage.AddAttributeStart(0x06, "TYPE");
-            codePage.AddAttributeStart(0x07, "TYPE", "TEXT");
-            codePage.AddAttributeStart(0x08, "URL", "http://");
-            codePage.AddAttributeStart(0x09, "NAME");
-            codePage.AddAttributeStart(0x0A, "KEY");
+            codePages.Add(codePage);
+        }
 
-            codePage.AddAttributeValue(0x85, ".org");
-            codePage.AddAttributeValue(0x86, "ACCEPT");
-
-            AddCodePage(codePage);
+        public virtual AttributeCodePage GetCodePage(int codePageId)
+        {
+            return codePages[codePageId];
         }
     }
 }

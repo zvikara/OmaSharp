@@ -29,7 +29,7 @@ namespace WBXML
             return true;
         }
 
-        public override string GetToken(byte byteItem)
+        public override string GetName(byte byteItem)
         {
             return "Tag_" + byteItem.ToString("X2");
         }
