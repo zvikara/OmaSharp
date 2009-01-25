@@ -79,15 +79,19 @@ namespace WBXML
         public virtual bool ContainsAttributeStartName(string name, string prefix)
         {
             if(attrStartNameDictionary.ContainsKey(name)){
-                return attrStartNameDictionary[name].ContainsKey(prefix);
+                foreach(string attributePrefix in attrStartNameDictionary[name].Keys){
+                    if(prefix.StartsWith(attributePrefix)){
+                        return true;
+                    }
+                }
             }
             return false;
         }
 
-        public virtual bool ContainsAttributeValueName(string attributeValue)
+        /*public virtual bool ContainsAttributeValueName(string attributeValue)
         {
             return attrValueNameDictionary.ContainsKey(attributeValue);
-        }
+        }*/
 
         public virtual string GetAttributeValue(byte token)
         {
@@ -106,12 +110,52 @@ namespace WBXML
 
         public virtual byte GetAttributeStartToken(string name, string prefix)
         {
-            return attrStartNameDictionary[name][prefix];
+            foreach (string attributePrefix in attrStartNameDictionary[name].Keys)
+            {
+                if (prefix.StartsWith(attributePrefix))
+                {
+                    return attrStartNameDictionary[name][attributePrefix];
+                }
+            }
+
+            //TODO throw an exception
+            return 0;
+        }
+
+        public int IndexOfAttributeValue(string attributeValue)
+        {
+            int index = -1;
+            foreach (string item in attrValueNameDictionary.Keys)
+            {
+                if (attributeValue.IndexOf(item) > -1)
+                {
+                    if (index < 0)
+                    {
+                        index = attributeValue.IndexOf(item);
+                    }
+                    else
+                    {
+                        index = Math.Min(index, attributeValue.IndexOf(item));
+                    }
+                };
+            }
+
+            return index;
         }
 
         public virtual byte GetAttributeValueToken(string attributeValue)
         {
-            return attrValueNameDictionary[attributeValue];
+            int index = IndexOfAttributeValue(attributeValue);
+            foreach (string item in attrValueNameDictionary.Keys)
+            {
+                if (attributeValue.Substring(index).StartsWith(item))
+                {
+                    return attrValueNameDictionary[item];
+                }
+            }
+            
+            //TODO throw an exception
+            return 0;
         }
     }
 }

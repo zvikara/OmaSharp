@@ -33,6 +33,7 @@ namespace WBXML
         private Encoding textEncoding = Encoding.UTF8;
         private double versionNumber;
         private int publicIdentifier;
+        private string[] stringTable = new string[]{};
 
         public double VersionNumber
         {
@@ -91,6 +92,18 @@ namespace WBXML
             set
             {
                 this.attributeCodeSpace = value;
+            }
+        }
+
+        public string[] StringTable
+        {
+            get
+            {
+                return this.stringTable;
+            }
+            set
+            {
+                this.stringTable = value;
             }
         }
 
@@ -240,8 +253,28 @@ namespace WBXML
             bytesList.Add(0x03);
             textEncoding = Encoding.GetEncoding("us-ascii");
 
-            //String table length (currently implemented as empty string table
-            bytesList.Add(0x00);
+            //String table length
+            int stringTableLength = 0;
+            List<byte> stringTableBytes = new List<byte>();
+
+            foreach (string stringTableItem in stringTable)
+            {
+                stringTableLength += stringTableItem.Length;
+                stringTableBytes.AddRange(textEncoding.GetBytes(stringTableItem));
+
+                stringTableLength++;
+                stringTableBytes.Add(0x00);
+            }
+
+            if (stringTableLength > 0)
+            {
+                bytesList.AddRange(GetMultiByte(stringTableLength));
+                bytesList.AddRange(stringTableBytes);
+            }
+            else
+            {
+                bytesList.Add(0);
+            }
 
             bytesList.AddRange(EncodeNodes(this.ChildNodes));
 
@@ -264,7 +297,6 @@ namespace WBXML
         {
             List<byte> bytesList = new List<byte>();
 
-            Console.WriteLine(node.NodeType);
             switch (node.NodeType)
             {
                 case XmlNodeType.Element:
@@ -300,9 +332,63 @@ namespace WBXML
                     }
                     break;
                 case XmlNodeType.Text:
-                    bytesList.Add((byte)GlobalTokens.Names.STR_I);
-                    bytesList.AddRange(textEncoding.GetBytes(node.Value));
-                    bytesList.Add(0x00);
+                    string textValue = node.Value;
+                    while (textValue.Length > 0)
+                    {
+                        int tableStringIndex = -1;
+                        foreach (string stringTableItem in stringTable)
+                        {
+                            if (textValue.IndexOf(stringTableItem) > -1)
+                            {
+                                if (tableStringIndex < 0)
+                                {
+                                    tableStringIndex = textValue.IndexOf(stringTableItem);
+                                }
+                                else
+                                {
+                                    tableStringIndex = Math.Min(tableStringIndex, textValue.IndexOf(stringTableItem));
+                                }
+                            }
+                        }
+
+                        if (tableStringIndex == 0)
+                        {
+                            bytesList.Add((byte)GlobalTokens.Names.STR_T);
+                            int stringTableReference = 0;
+                            foreach (string stringTableItem in stringTable)
+                            {
+                                if (textValue.StartsWith(stringTableItem))
+                                {
+                                    bytesList.Add((byte)stringTableReference);
+                                    textValue = textValue.Substring(stringTableItem.Length);
+                                    break;
+                                }
+                                else
+                                {
+                                    stringTableReference += stringTableItem.Length;
+                                    stringTableReference++;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            bytesList.Add((byte)GlobalTokens.Names.STR_I);
+                            
+                            int substringLength;
+                            if (tableStringIndex > 0)
+                            {
+                                substringLength = tableStringIndex;
+                            }
+                            else
+                            {
+                                substringLength = textValue.Length;
+                            }
+
+                            bytesList.AddRange(textEncoding.GetBytes(textValue.Substring(0, substringLength)));
+                            textValue = textValue.Substring(substringLength);
+                            bytesList.Add(0);
+                        }
+                    }
                     break;
                 case XmlNodeType.EntityReference:
                     bytesList.Add((byte)GlobalTokens.Names.ENTITY);
@@ -313,19 +399,87 @@ namespace WBXML
                     }
                     break;
                 case XmlNodeType.Attribute:
-                    Console.WriteLine(node.Name);
-                    Console.WriteLine(node.Value);
                     if (attributeCodeSpace.GetCodePage().ContainsAttributeStartName(node.Name, node.Value))
                     {
-                        bytesList.Add(attributeCodeSpace.GetCodePage().GetAttributeStartToken(node.Name, node.Value));
-                    }
-                    else if (attributeCodeSpace.GetCodePage().ContainsAttributeStartName(node.Name))
-                    {
-                        bytesList.Add(attributeCodeSpace.GetCodePage().GetAttributeStartToken(node.Name));
-                    }
-                    else
-                    {
-                        Console.WriteLine("Unknown attribute");
+                        byte attributeStartToken = attributeCodeSpace.GetCodePage().GetAttributeStartToken(node.Name, node.Value); 
+                        bytesList.Add(attributeStartToken);
+                                         
+                        AttributeStart attributeStart = attributeCodeSpace.GetCodePage().GetAttributeStart(attributeStartToken);
+                        string attributePostfix = node.Value.Substring(attributeStart.Prefix.Length);
+
+                        while (attributePostfix.Length > 0)
+                        {
+                            int attributeValueIndex = attributeCodeSpace.GetCodePage().IndexOfAttributeValue(attributePostfix);
+                            if (attributeValueIndex == 0)
+                            {
+                                byte attributeValueToken = attributeCodeSpace.GetCodePage().GetAttributeValueToken(attributePostfix);
+                                int attributeValueLength = attributeCodeSpace.GetCodePage().GetAttributeValue(attributeValueToken).Length;
+                                attributePostfix = attributePostfix.Substring(attributeValueLength);
+
+                                bytesList.Add(attributeValueToken);
+                            }
+                            else 
+                            {
+                                int tableStringIndex = -1;
+                                foreach (string stringTableItem in stringTable)
+                                {
+                                    if (attributePostfix.IndexOf(stringTableItem) > -1)
+                                    {
+                                        if (tableStringIndex < 0)
+                                        {
+                                            tableStringIndex = attributePostfix.IndexOf(stringTableItem);
+                                        }
+                                        else
+                                        {
+                                            tableStringIndex = Math.Min(tableStringIndex, attributePostfix.IndexOf(stringTableItem));
+                                        }
+                                    }
+                                }
+
+                                if (tableStringIndex == 0)
+                                {
+                                    bytesList.Add((byte)GlobalTokens.Names.STR_T);
+                                    int stringTableReference = 0;
+                                    foreach (string stringTableItem in stringTable)
+                                    {
+                                        if (attributePostfix.StartsWith(stringTableItem))
+                                        {
+                                            bytesList.Add((byte)stringTableReference);
+                                            attributePostfix = attributePostfix.Substring(stringTableItem.Length);
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            stringTableReference += stringTableItem.Length;
+                                            stringTableReference++;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    bytesList.Add((byte)GlobalTokens.Names.STR_I);
+     
+                                    int substringLength;
+                                    if (attributeValueIndex > 0 && tableStringIndex > 0)
+                                    {
+                                        substringLength = Math.Min(attributeValueIndex, tableStringIndex);
+                                    }
+                                    else if (attributeValueIndex > 0 || tableStringIndex > 0)
+                                    {
+                                        substringLength = Math.Max(attributeValueIndex, tableStringIndex);
+                                    }
+                                    else
+                                    {
+                                        substringLength = attributePostfix.Length;
+                                    }
+
+                                    bytesList.AddRange(textEncoding.GetBytes(attributePostfix.Substring(0, substringLength)));
+                                    attributePostfix = attributePostfix.Substring(substringLength);
+
+                                    bytesList.Add(0);
+                                }
+                            }
+                        }
                     }
                     break;
             }
