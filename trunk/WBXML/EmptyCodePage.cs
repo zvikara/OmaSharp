@@ -22,16 +22,16 @@ using System.Text;
 
 namespace WBXML
 {
-    public class EmptyCodePage : CodePage
+    public class EmptyCodePage : TagCodePage
     {
-        public override bool ContainsToken(byte byteItem)
+        public override bool ContainsTag(byte token)
         {
             return true;
         }
 
-        public override string GetName(byte byteItem)
+        public override Tag GetTag(byte token)
         {
-            return "Tag_" + byteItem.ToString("X2");
+            return new Tag(token, "Tag_" + token.ToString("X2"));
         }
     }
 }

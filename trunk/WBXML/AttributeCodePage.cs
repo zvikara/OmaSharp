@@ -37,7 +37,7 @@ namespace WBXML
 
         public void AddAttributeStart(byte token, string attributeName, string prefixValue)
         {
-            attrStartTokenDictionary.Add(token, new AttributeStart(attributeName, prefixValue));
+            attrStartTokenDictionary.Add(token, new AttributeStart(token, attributeName, prefixValue));
 
             Dictionary<string, byte> internalValueTokenDictionary;
             if (attrStartNameDictionary.ContainsKey(attributeName))
@@ -59,28 +59,29 @@ namespace WBXML
             attrValueNameDictionary.Add(attributeValue, token);
         }
 
-        public virtual bool ContainsToken(byte token)
+        public virtual bool ContainsAttributeStart(byte token)
         {
-            if (token >= 128)
-            {
-                return attrValueTokenDictionary.ContainsKey(token);
-            }
-            else
+            if (token < 128)
             {
                 return attrStartTokenDictionary.ContainsKey(token);
             }
+
+            return false;
         }
 
-        public virtual bool ContainsAttributeStartName(string name)
+        public virtual bool ContainsAttributeStart(string name)
         {
-            return ContainsAttributeStartName(name, "");
+            return ContainsAttributeStart(name, "");
         }
 
-        public virtual bool ContainsAttributeStartName(string name, string prefix)
+        public virtual bool ContainsAttributeStart(string name, string attributeValue)
         {
-            if(attrStartNameDictionary.ContainsKey(name)){
-                foreach(string attributePrefix in attrStartNameDictionary[name].Keys){
-                    if(prefix.StartsWith(attributePrefix)){
+            if (attrStartNameDictionary.ContainsKey(name))
+            {
+                foreach (string prefixItem in attrStartNameDictionary[name].Keys)
+                {
+                    if (attributeValue.StartsWith(prefixItem))
+                    {
                         return true;
                     }
                 }
@@ -88,14 +89,50 @@ namespace WBXML
             return false;
         }
 
-        /*public virtual bool ContainsAttributeValueName(string attributeValue)
+        public virtual bool ContainsAttributeValue(byte token)
         {
-            return attrValueNameDictionary.ContainsKey(attributeValue);
-        }*/
+            if (token >= 128)
+            {
+                return attrValueTokenDictionary.ContainsKey(token);
+            }
 
-        public virtual string GetAttributeValue(byte token)
+            return false;
+        }
+
+        public virtual bool ContainsAttributeValue(string attributeValue)
         {
-            return attrValueTokenDictionary[token];
+            foreach (string attributeValueItem in attrValueNameDictionary.Keys)
+            {
+                if(attributeValue.Contains(attributeValueItem)){
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public virtual AttributeValue GetAttributeValue(byte token)
+        {
+            return new AttributeValue(token, attrValueTokenDictionary[token]);
+        }
+
+        public virtual AttributeValue GetAttributeValue(string attributeValue)
+        {
+            AttributeValue returnValue = null;
+
+            foreach (string attributeValueItem in attrValueNameDictionary.Keys)
+            {
+                if(attributeValue.Contains(attributeValueItem)){
+                    if (returnValue == null 
+                        || attributeValue.IndexOf(attributeValueItem) < attributeValue.IndexOf(returnValue.Value) 
+                        || attributeValueItem.Length > returnValue.Value.Length)
+                    {
+                        returnValue = new AttributeValue(attrValueNameDictionary[attributeValueItem], attributeValueItem);
+                    }
+                }
+            }
+
+            return returnValue;
         }
 
         public virtual AttributeStart GetAttributeStart(byte token)
@@ -103,59 +140,21 @@ namespace WBXML
             return attrStartTokenDictionary[token];
         }
 
-        public virtual byte GetAttributeStartToken(string name)
+        public virtual AttributeStart GetAttributeStart(string name, string prefix)
         {
-            return GetAttributeStartToken(name, "");
-        }
-
-        public virtual byte GetAttributeStartToken(string name, string prefix)
-        {
-            foreach (string attributePrefix in attrStartNameDictionary[name].Keys)
-            {
-                if (prefix.StartsWith(attributePrefix))
-                {
-                    return attrStartNameDictionary[name][attributePrefix];
-                }
-            }
-
-            //TODO throw an exception
-            return 0;
-        }
-
-        public int IndexOfAttributeValue(string attributeValue)
-        {
-            int index = -1;
-            foreach (string item in attrValueNameDictionary.Keys)
-            {
-                if (attributeValue.IndexOf(item) > -1)
-                {
-                    if (index < 0)
-                    {
-                        index = attributeValue.IndexOf(item);
-                    }
-                    else
-                    {
-                        index = Math.Min(index, attributeValue.IndexOf(item));
-                    }
-                };
-            }
-
-            return index;
-        }
-
-        public virtual byte GetAttributeValueToken(string attributeValue)
-        {
-            int index = IndexOfAttributeValue(attributeValue);
-            foreach (string item in attrValueNameDictionary.Keys)
-            {
-                if (attributeValue.Substring(index).StartsWith(item))
-                {
-                    return attrValueNameDictionary[item];
-                }
-            }
+            AttributeStart returnValue = null;
             
-            //TODO throw an exception
-            return 0;
+            foreach (string prefixItem in attrStartNameDictionary[name].Keys)
+            {
+                if(prefix.StartsWith(prefixItem)){
+                    if (returnValue == null || prefixItem.Length > returnValue.Prefix.Length)
+                    {
+                        returnValue = new AttributeStart(attrStartNameDictionary[name][prefixItem], name, prefixItem);
+                    }
+                }
+            }
+
+            return returnValue;
         }
     }
 }

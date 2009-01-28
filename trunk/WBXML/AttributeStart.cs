@@ -24,18 +24,16 @@ namespace WBXML
 {
     public class AttributeStart
     {
+        private byte token;
         private string name;
         private string prefix;
 
-        public AttributeStart(string name)
+        public byte Token
         {
-            this.name = name;
-        }
-
-        public AttributeStart(string name, string prefix)
-        {
-            this.name = name;
-            this.prefix = prefix;
+            get
+            {
+                return this.token;
+            }
         }
 
         public string Name
@@ -43,10 +41,6 @@ namespace WBXML
             get
             {
                 return this.name;
-            }
-            set
-            {
-                this.name = value;
             }
         }
 
@@ -56,10 +50,18 @@ namespace WBXML
             {
                 return this.prefix;
             }
-            set
-            {
-                this.prefix = value;
-            }
+        }
+
+        public AttributeStart(byte token, string name)
+            : this(token, name, "")
+        {
+        }
+
+        public AttributeStart(byte token, string name, string prefix)
+        {
+            this.token = token;
+            this.name = name;
+            this.prefix = prefix;
         }
     }
 }

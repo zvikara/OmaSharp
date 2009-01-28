@@ -49,7 +49,7 @@ namespace WBXMLSpecifcationDemo
             extendedWBXMLDocument.VersionNumber = 1.3;
             extendedWBXMLDocument.TagCodeSpace = new ExtendedCodeSpace();
             extendedWBXMLDocument.AttributeCodeSpace = new ExtendedAttributeCodeSpace();
-            extendedWBXMLDocument.StringTable = new string[] { "abc", " Enter name: " };
+            extendedWBXMLDocument.StringTable = new StringTable(new string[] { "abc", " Enter name: " });
 
             Console.WriteLine("Extended: WBXML output");
             byte[] extendedBytes = extendedWBXMLDocument.GetBytes();

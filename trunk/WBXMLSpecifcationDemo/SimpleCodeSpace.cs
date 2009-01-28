@@ -24,11 +24,11 @@ using WBXML;
 
 namespace WBXMLSpecifcationDemo
 {
-    public class SimpleCodeSpace : CodeSpace
+    public class SimpleCodeSpace : TagCodeSpace
     {
         public SimpleCodeSpace()
         {
-            CodePage codePage = new CodePage();
+            TagCodePage codePage = new TagCodePage();
             codePage.AddToken(0x05, "BR");
             codePage.AddToken(0x06, "CARD");
             codePage.AddToken(0x07, "XYZ");

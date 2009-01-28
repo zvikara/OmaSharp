@@ -22,9 +22,9 @@ using System.Text;
 
 namespace WBXML
 {
-    class EmptyCodeSpace : CodeSpace
+    class EmptyCodeSpace : TagCodeSpace
     {
-        public override CodePage GetCodePage()
+        public override TagCodePage GetCodePage()
         {
             return new EmptyCodePage();
         }

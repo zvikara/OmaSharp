@@ -22,35 +22,25 @@ using System.Text;
 
 namespace WBXML
 {
-    public class CodePage
+    public class TagCodeSpace
     {
-        private Dictionary<byte, string> tokenDictionary = new Dictionary<byte, string>();
-        private Dictionary<string, byte> nameDictionary = new Dictionary<string,byte>();
+        private int codepage = 0;
 
-        public void AddToken(byte token, string name)
+        private List<TagCodePage> codePages = new List<TagCodePage>();
+
+        public void AddCodePage(TagCodePage codePage)
         {
-            tokenDictionary.Add(token, name);
-            nameDictionary.Add(name, token);
+            codePages.Add(codePage);
         }
 
-        public virtual bool ContainsToken(byte token)
+        public virtual TagCodePage GetCodePage()
         {
-            return tokenDictionary.ContainsKey(token);
+            return codePages[codepage];
         }
 
-        public virtual bool ContainsName(string name)
+        public void SwitchCodePage(int codepage)
         {
-            return nameDictionary.ContainsKey(name);
-        } 
-
-        public virtual string GetName(byte token)
-        {
-            return tokenDictionary[token];
-        }
-
-        public virtual byte GetToken(string name)
-        {
-            return nameDictionary[name];
+            this.codepage = codepage;
         }
     }
 }

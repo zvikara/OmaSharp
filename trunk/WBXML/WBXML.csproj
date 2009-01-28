@@ -45,12 +45,16 @@
     <Compile Include="AttributeCodePage.cs" />
     <Compile Include="AttributeCodeSpace.cs" />
     <Compile Include="AttributeStart.cs" />
-    <Compile Include="CodePage.cs" />
-    <Compile Include="CodeSpace.cs" />
+    <Compile Include="AttributeValue.cs" />
+    <Compile Include="StringTableItem.cs" />
+    <Compile Include="Tag.cs" />
+    <Compile Include="TagCodePage.cs" />
+    <Compile Include="TagCodeSpace.cs" />
     <Compile Include="EmptyCodePage.cs" />
     <Compile Include="EmptyCodeSpace.cs" />
     <Compile Include="GlobalTokens.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringTable.cs" />
     <Compile Include="WBXMLDocument.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

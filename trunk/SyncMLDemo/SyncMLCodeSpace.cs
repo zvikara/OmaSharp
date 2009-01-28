@@ -28,11 +28,11 @@ using WBXML;
 
 namespace SyncMLDemo
 {
-    public class SyncMLCodeSpace : CodeSpace
+    public class SyncMLCodeSpace : TagCodeSpace
     {
         public SyncMLCodeSpace()
         {
-            CodePage zeroPage = new CodePage();
+            TagCodePage zeroPage = new TagCodePage();
             zeroPage.AddToken(0x05, "Add");
             zeroPage.AddToken(0x06, "Alert");
             zeroPage.AddToken(0x07, "Archive");
@@ -81,7 +81,7 @@ namespace SyncMLDemo
             zeroPage.AddToken(0x33, "NumberOfChanges");
             zeroPage.AddToken(0x34, "MoreData");
 
-            CodePage onePage = new CodePage();
+            TagCodePage onePage = new TagCodePage();
             onePage.AddToken(0x05, "Anchor");
             onePage.AddToken(0x06, "EMI");
             onePage.AddToken(0x07, "Format");
