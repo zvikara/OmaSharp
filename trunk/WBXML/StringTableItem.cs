@@ -24,14 +24,14 @@ namespace WBXML
 {
     public class StringTableItem
     {
-        private byte token;
+        private int index;
         private string itemValue;
 
-        public byte Token
+        public int Index
         {
             get
             {
-                return token;
+                return index;
             }
         }
 
@@ -43,9 +43,9 @@ namespace WBXML
             }
         }
 
-        public StringTableItem(byte token, string itemValue)
+        public StringTableItem(int index, string itemValue)
         {
-            this.token = token;
+            this.index = index;
             this.itemValue = itemValue;
         }
     }

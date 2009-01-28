@@ -54,6 +54,11 @@ namespace WBXML
             stringTableLength = stringTableIndex;
         }
 
+        public bool ContainsString(int index)
+        {
+            return stringTableIndexDictionary.ContainsKey(index);
+        }
+
         public bool ContainsString(string stringTableValue)
         {
             foreach (string stringTableItem in stringTableValueDictionary.Keys)
@@ -79,12 +84,17 @@ namespace WBXML
                         || stringTableValue.IndexOf(stringTableItem) < stringTableValue.IndexOf(returnValue.Value) 
                         || stringTableItem.Length > returnValue.Value.Length)
                     {
-                        returnValue = new StringTableItem((byte)stringTableValueDictionary[stringTableItem], stringTableItem);
+                        returnValue = new StringTableItem(stringTableValueDictionary[stringTableItem], stringTableItem);
                     }
                 }
             }
 
             return returnValue;
+        }
+
+        public StringTableItem GetString(int index)
+        {
+            return new StringTableItem(index, stringTableIndexDictionary[index]);
         }
 
         public byte[] GetStringTableBytes(Encoding textEncoding)
