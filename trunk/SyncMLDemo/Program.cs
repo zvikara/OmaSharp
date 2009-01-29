@@ -27,13 +27,36 @@ namespace SyncMLDemo
     {
         static void Main(string[] args)
         {
-            byte[] byteArray = new byte[] { }; //The WBXML which is used for the SyncML protocol
-           
-            WBXMLDocument wbxmlDocument = new WBXMLDocument();
-            wbxmlDocument.TagCodeSpace = new SyncMLCodeSpace();
-            wbxmlDocument.LoadBytes(byteArray);
-            Console.WriteLine(wbxmlDocument.OuterXml);
+            //Encoding and decoding of DevInf sample (Section 9)
+            //http://www.openmobilealliance.org/tech/affiliates/syncml/syncml_devinf_v11_20020215.pdf
+            WBXMLDocument devInfDocument = new WBXMLDocument();
+            devInfDocument.VersionNumber = 1.3;
+            devInfDocument.TagCodeSpace = new DevInfCodeSpace();
+            devInfDocument.Load("DevInf.xml");
+
+            Console.WriteLine("DevInf: WBXML output");
+            byte[] devInfBytes = devInfDocument.GetBytes();
+            Console.WriteLine(PrintHex(devInfBytes));
+            
+            WBXMLDocument decodeDevInfDocument = new WBXMLDocument();
+            decodeDevInfDocument.TagCodeSpace = new DevInfCodeSpace();
+            decodeDevInfDocument.LoadBytes(devInfBytes);
+
+            Console.WriteLine("DevInf: XML output");
+            Console.WriteLine(decodeDevInfDocument.OuterXml);
+
             Console.ReadLine();    
+        }
+
+        private static string PrintHex(byte[] bytes)
+        {
+            StringBuilder stringReturn = new StringBuilder();
+            foreach (byte byteItem in bytes)
+            {
+                stringReturn.Append(byteItem.ToString("X2"));
+                stringReturn.Append(" ");
+            }
+            return stringReturn.ToString();
         }
     }
 }
