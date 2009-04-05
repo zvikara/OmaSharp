@@ -24,6 +24,11 @@ namespace WBXML
 {
     class EmptyCodeSpace : TagCodeSpace
     {
+        public override int GetPublicIdentifier()
+        {
+            return (int)0x01;
+        }
+
         public override TagCodePage GetCodePage()
         {
             return new EmptyCodePage();

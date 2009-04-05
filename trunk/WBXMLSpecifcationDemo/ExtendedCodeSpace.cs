@@ -36,5 +36,10 @@ namespace WBXMLSpecifcationDemo
 
             AddCodePage(codePage);
         }
+
+        public override int GetPublicIdentifier()
+        {
+            return (int)0x01;
+        }
     }
 }

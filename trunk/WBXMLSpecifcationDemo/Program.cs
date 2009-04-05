@@ -32,6 +32,7 @@ namespace WBXMLSpecifcationDemo
             simpleWBXMLDocument.Load("SimpleXML.xml");
             simpleWBXMLDocument.VersionNumber = 1.3;
             simpleWBXMLDocument.TagCodeSpace = new SimpleCodeSpace();
+            simpleWBXMLDocument.Encoding = Encoding.ASCII;
 
             Console.WriteLine("Simple: WBXML output");
             byte[] simpleBytes = simpleWBXMLDocument.GetBytes();

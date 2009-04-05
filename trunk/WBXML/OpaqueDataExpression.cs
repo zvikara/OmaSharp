@@ -15,30 +15,46 @@
 // Open Mobile Alliance (http://www.openmobilealliance.org/)
 // Details about this specification can be found at
 // http://www.openmobilealliance.org/tech/affiliates/wap/wap-192-wbxml-20010725-a.pdf
-//
-// Encoding sample which can be found inside section 8.1 of the WBXML Specification
+
 using System;
 using System.Collections.Generic;
 using System.Text;
-using WBXML;
 
-namespace WBXMLSpecifcationDemo
+namespace WBXML
 {
-    public class SimpleCodeSpace : TagCodeSpace
+    public class OpaqueDataExpression
     {
-        public SimpleCodeSpace()
-        {
-            TagCodePage codePage = new TagCodePage();
-            codePage.AddToken(0x05, "BR");
-            codePage.AddToken(0x06, "CARD");
-            codePage.AddToken(0x07, "XYZ");
+        private string tagName;
+        private string xPathExpression;
 
-            AddCodePage(codePage);
+        public string TagName
+        {
+            get
+            {
+                return tagName;
+            }
+            set
+            {
+                this.tagName = value;
+            }
         }
 
-        public override int GetPublicIdentifier()
+        public string Expression
         {
-            return (int)0x01;
+            get
+            {
+                return this.xPathExpression;
+            }
+            set
+            {
+                this.xPathExpression = value;
+            }
+        }
+
+        public OpaqueDataExpression(string name, string expression)
+        {
+            this.tagName = name;
+            this.xPathExpression = expression;
         }
     }
 }

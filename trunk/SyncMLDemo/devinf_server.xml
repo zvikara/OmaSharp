@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DevInf>
+  <Man>Small Factory, Ltd.</Man>
+  <Mod>Tiny Server</Mod>
+  <OEM>Tiny Shop</OEM>
+  <DevID>485749KR</DevID>
+  <DevTyp>Server</DevTyp>
+  <DataStore>
+    <SourceRef>./contacts</SourceRef>
+    <DisplayName>Addressbook</DisplayName>
+    <Rx-Pref>
+      <CTType>text/x-vcard </CTType>
+      <VerCT>2.1</VerCT>
+    </Rx-Pref>
+    <Rx>
+      <CTType>text/vcard </CTType>
+      <VerCT>3.0</VerCT>
+    </Rx>
+    <Tx-Pref>
+      <CTType>text/x-vcard</CTType>
+      <VerCT>2.1</VerCT>
+    </Tx-Pref>
+    <Tx>
+      <CTType>text/vcard</CTType>
+      <VerCT>3.0</VerCT>
+    </Tx>
+  </DataStore>
+  <CTCap>
+    <CTType>text/x-vcard</CTType>
+    <PropName>BEGIN</PropName>
+    <ValEnum>VCARD</ValEnum>
+    <PropName>END</PropName>
+    <ValEnum>VCARD</ValEnum>
+    <PropName>VERSION</PropName>
+    <ValEnum>2.1</ValEnum>
+    <PropName>N</PropName>
+    <PropName>TEL</PropName>
+    <ParamName>VOICE</ParamName>
+    <ParamName>CELL</ParamName>
+    <CTType>text/vcard</CTType>
+    <PropName>BEGIN</PropName>
+    <ValEnum>VCARD</ValEnum>
+    <PropName>END</PropName>
+    <ValEnum>VCARD</ValEnum>
+    <PropName>VERSION</PropName>
+    <ValEnum>3.0</ValEnum>
+    <PropName>N</PropName>
+    <PropName>TEL</PropName>
+    <ParamName>VOICE</ParamName>
+    <ParamName>FAX</ParamName>
+    <ParamName>CELL</ParamName>
+    <CTType>text/vcard</CTType>
+    <PropName>BEGIN</PropName>
+    <ValEnum>VCARD</ValEnum>
+    <PropName>END</PropName>
+    <ValEnum>VCARD</ValEnum>
+    <PropName>VERSION</PropName>
+    <ValEnum>3.0</ValEnum>
+    <PropName>N</PropName>
+    <PropName>TEL</PropName>
+    <ParamName>VOICE</ParamName>
+    <ParamName>FAX</ParamName>
+    <ParamName>CELL</ParamName>
+  </CTCap>
+  <SyncCap>
+    <SyncType>01</SyncType>
+    <SyncType>02</SyncType>
+    <SyncType>07</SyncType>
+  </SyncCap>
+</DevInf>

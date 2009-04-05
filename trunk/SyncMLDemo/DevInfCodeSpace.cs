@@ -51,5 +51,10 @@ namespace SyncMLDemo
 
             AddCodePage(zeroPage);
         }
+
+        public override int GetPublicIdentifier()
+        {
+            return (int)0xfd2;
+        }
     }
 }

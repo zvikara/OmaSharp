@@ -22,9 +22,9 @@ using System.Text;
 
 namespace WBXML
 {
-    public class TagCodeSpace
+    public abstract class TagCodeSpace
     {
-        private int codepage = 0;
+        private int codepageId = 0;
 
         private List<TagCodePage> codePages = new List<TagCodePage>();
 
@@ -35,12 +35,43 @@ namespace WBXML
 
         public virtual TagCodePage GetCodePage()
         {
-            return codePages[codepage];
+            return codePages[codepageId];
         }
 
-        public void SwitchCodePage(int codepage)
+        public void SwitchCodePage(int codepageId)
         {
-            this.codepage = codepage;
+            this.codepageId = codepageId;
         }
+
+        public int ContainsTag(string name)
+        {
+            if (codePages[codepageId].ContainsTag(name))
+            {
+                return codepageId;
+            }
+
+            for (int i = 0; i < codePages.Count; i++)
+            {
+                if (i != codepageId)
+                {
+                    if (codePages[i].ContainsTag(name))
+                    {
+                        return i;
+                    }
+                }
+            }
+
+            return -1;
+        }
+
+        public int CodePageId
+        {
+            get
+            {
+                return codepageId;
+            }
+        }
+
+        public abstract int GetPublicIdentifier();
     }
 }
