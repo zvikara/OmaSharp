@@ -344,6 +344,9 @@ namespace WBXML
         #region Encoder
         public byte[] GetBytes()
         {
+            tagCodeSpace.SwitchCodePage(0);
+            attributeCodeSpace.SwitchCodePage(0);
+
             List<byte> bytesList = new List<byte>();
 
             //Versionnumber
