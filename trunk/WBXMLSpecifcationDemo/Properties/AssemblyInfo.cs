@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("WBXMLSpecifcationDemo")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Geodan")]
+[assembly: AssemblyCompany("Johan de Koning (johan@johandekoning.nl)")]
 [assembly: AssemblyProduct("WBXMLSpecifcationDemo")]
-[assembly: AssemblyCopyright("Copyright © Geodan 2009")]
+[assembly: AssemblyCopyright("Copyright 2009 - Johan de Koning (johan@johandekoning.nl)")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
