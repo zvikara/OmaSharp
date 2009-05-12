@@ -29,7 +29,7 @@ namespace WBXML
             return (int)0x01;
         }
 
-        public override TagCodePage GetCodePage()
+        public override TagCodePage GetCodePage(int codepageId)
         {
             return new EmptyCodePage();
         }

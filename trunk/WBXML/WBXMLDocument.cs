@@ -36,6 +36,9 @@ namespace WBXML
         private StringTable stringTable = new StringTable();
         private List<OpaqueDataExpression> opaqueDataExpressions = new List<OpaqueDataExpression>();
 
+        private int currentTagCodePage = 0;
+        private int currentAttributeCodePage = 0;
+
         public double VersionNumber
         {
             get
@@ -124,8 +127,8 @@ namespace WBXML
         #region Decoder
         private void DecodeWBXML(byte[] bytes)
         {
-            tagCodeSpace.SwitchCodePage(0);
-            attributeCodeSpace.SwitchCodePage(0);
+            currentTagCodePage = 0;
+            currentAttributeCodePage = 0;
 
             bool isAttribute = false;
             bool tagHasAttributes = false;
@@ -185,7 +188,7 @@ namespace WBXML
                     switch (globalToken)
                     {
                         case GlobalTokens.Names.SWITCH_PAGE:
-                            tagCodeSpace.SwitchCodePage((int)byteQueue.Dequeue());
+                            currentTagCodePage = (int)byteQueue.Dequeue();
                             break;
                         case GlobalTokens.Names.END:
                             if (isAttribute)
@@ -286,9 +289,9 @@ namespace WBXML
                     byteItem &= 63;
 
                     string tagValue;
-                    if (tagCodeSpace.GetCodePage().ContainsTag(byteItem))
+                    if (tagCodeSpace.GetCodePage(currentTagCodePage).ContainsTag(byteItem))
                     {
-                        tagValue = tagCodeSpace.GetCodePage().GetTag(byteItem).Name;
+                        tagValue = tagCodeSpace.GetCodePage(currentTagCodePage).GetTag(byteItem).Name;
                     }
                     else
                     {
@@ -311,9 +314,9 @@ namespace WBXML
                 {
                     if (byteItem < 128)
                     {
-                        if (attributeCodeSpace.GetCodePage().ContainsAttributeStart(byteItem))
+                        if (attributeCodeSpace.GetCodePage(currentAttributeCodePage).ContainsAttributeStart(byteItem))
                         {
-                            AttributeStart attributeStart = attributeCodeSpace.GetCodePage().GetAttributeStart(byteItem);
+                            AttributeStart attributeStart = attributeCodeSpace.GetCodePage(currentAttributeCodePage).GetAttributeStart(byteItem);
                             XmlAttribute xmlAttribute = CreateAttribute(attributeStart.Name);
                             xmlAttribute.InnerText = attributeStart.Prefix;
                             activeNode.Attributes.Append(xmlAttribute);
@@ -330,9 +333,9 @@ namespace WBXML
                     }
                     else
                     {
-                        if (attributeCodeSpace.GetCodePage().ContainsAttributeValue(byteItem))
+                        if (attributeCodeSpace.GetCodePage(currentAttributeCodePage).ContainsAttributeValue(byteItem))
                         {
-                            AttributeValue attributeValue = attributeCodeSpace.GetCodePage().GetAttributeValue(byteItem);
+                            AttributeValue attributeValue = attributeCodeSpace.GetCodePage(currentAttributeCodePage).GetAttributeValue(byteItem);
                             activeAttribute.InnerText += attributeValue.Value;
                         }
                     }
@@ -344,8 +347,8 @@ namespace WBXML
         #region Encoder
         public byte[] GetBytes()
         {
-            tagCodeSpace.SwitchCodePage(0);
-            attributeCodeSpace.SwitchCodePage(0);
+            currentTagCodePage = 0;
+            currentAttributeCodePage = 0;
 
             List<byte> bytesList = new List<byte>();
 
@@ -396,17 +399,17 @@ namespace WBXML
                 case XmlNodeType.Element:
                     bool hasAttributes = node.Attributes.Count > 0;
                     bool hasContent = node.HasChildNodes;
-                    int codePage = tagCodeSpace.ContainsTag(node.Name);
+                    int codePage = tagCodeSpace.ContainsTag(currentTagCodePage, node.Name);
                     if (codePage >= 0)
                     {
-                        if (tagCodeSpace.CodePageId != codePage)
+                        if (currentTagCodePage != codePage)
                         {
                             bytesList.Add((byte)GlobalTokens.Names.SWITCH_PAGE);
                             bytesList.Add((byte)codePage);
-                            tagCodeSpace.SwitchCodePage(codePage);
+                            currentTagCodePage = codePage;
                         }
 
-                        byte keyValue = tagCodeSpace.GetCodePage().GetTag(node.Name).Token;
+                        byte keyValue = tagCodeSpace.GetCodePage(currentTagCodePage).GetTag(node.Name).Token;
                         if (hasAttributes)
                         {
                             keyValue |= 128;
@@ -500,9 +503,9 @@ namespace WBXML
                     }
                     break;
                 case XmlNodeType.Attribute:
-                    if (attributeCodeSpace.GetCodePage().ContainsAttributeStart(node.Name, node.Value))
+                    if (attributeCodeSpace.GetCodePage(currentAttributeCodePage).ContainsAttributeStart(node.Name, node.Value))
                     {
-                        AttributeStart attributeStart = attributeCodeSpace.GetCodePage().GetAttributeStart(node.Name, node.Value);
+                        AttributeStart attributeStart = attributeCodeSpace.GetCodePage(currentAttributeCodePage).GetAttributeStart(node.Name, node.Value);
                         bytesList.Add(attributeStart.Token);
 
                         string postAttributeValue = node.Value.Substring(attributeStart.Prefix.Length);
@@ -510,9 +513,9 @@ namespace WBXML
                         {
                             int attrValueIndex = postAttributeValue.Length;
 
-                            if (attributeCodeSpace.GetCodePage().ContainsAttributeValue(postAttributeValue))
+                            if (attributeCodeSpace.GetCodePage(currentAttributeCodePage).ContainsAttributeValue(postAttributeValue))
                             {
-                                AttributeValue attrValue = attributeCodeSpace.GetCodePage().GetAttributeValue(postAttributeValue);
+                                AttributeValue attrValue = attributeCodeSpace.GetCodePage(currentAttributeCodePage).GetAttributeValue(postAttributeValue);
                                 attrValueIndex = postAttributeValue.IndexOf(attrValue.Value);
 
                                 if (attrValueIndex == 0)

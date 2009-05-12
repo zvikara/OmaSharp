@@ -24,8 +24,6 @@ namespace WBXML
 {
     public abstract class TagCodeSpace
     {
-        private int codepageId = 0;
-
         private List<TagCodePage> codePages = new List<TagCodePage>();
 
         public void AddCodePage(TagCodePage codePage)
@@ -33,17 +31,12 @@ namespace WBXML
             codePages.Add(codePage);
         }
 
-        public virtual TagCodePage GetCodePage()
+        public virtual TagCodePage GetCodePage(int codepageId)
         {
             return codePages[codepageId];
         }
 
-        public void SwitchCodePage(int codepageId)
-        {
-            this.codepageId = codepageId;
-        }
-
-        public int ContainsTag(string name)
+        public int ContainsTag(int codepageId, string name)
         {
             if (codePages[codepageId].ContainsTag(name))
             {
@@ -62,14 +55,6 @@ namespace WBXML
             }
 
             return -1;
-        }
-
-        public int CodePageId
-        {
-            get
-            {
-                return codepageId;
-            }
         }
 
         public abstract int GetPublicIdentifier();
