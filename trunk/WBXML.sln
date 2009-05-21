@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncMLDemo", "SyncMLDemo\Sy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WBXMLSpecifcationDemo", "WBXMLSpecifcationDemo\WBXMLSpecifcationDemo.csproj", "{1BB58E9B-C842-4B45-8CA2-5281908E2B41}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActiveSyncDemo", "ActiveSyncDemo\ActiveSyncDemo.csproj", "{523D9ABF-BEF0-4EBF-B9A1-39C1BA8A1F98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{1BB58E9B-C842-4B45-8CA2-5281908E2B41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BB58E9B-C842-4B45-8CA2-5281908E2B41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BB58E9B-C842-4B45-8CA2-5281908E2B41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{523D9ABF-BEF0-4EBF-B9A1-39C1BA8A1F98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{523D9ABF-BEF0-4EBF-B9A1-39C1BA8A1F98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{523D9ABF-BEF0-4EBF-B9A1-39C1BA8A1F98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{523D9ABF-BEF0-4EBF-B9A1-39C1BA8A1F98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

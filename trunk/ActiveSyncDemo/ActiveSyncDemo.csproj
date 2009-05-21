@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{523D9ABF-BEF0-4EBF-B9A1-39C1BA8A1F98}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ActiveSyncDemo</RootNamespace>
+    <AssemblyName>ActiveSyncDemo</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActiveSyncCodeSpace.cs" />
+    <Compile Include="AirNotifyCodePage.cs" />
+    <Compile Include="AirSyncBaseCodePage.cs" />
+    <Compile Include="AirSyncCodePage.cs" />
+    <Compile Include="CalendarCodePage.cs" />
+    <Compile Include="ComposeMailCodePage.cs" />
+    <Compile Include="Contacts2CodePage.cs" />
+    <Compile Include="ContactsCodePage.cs" />
+    <Compile Include="DocumentLibraryCodePage.cs" />
+    <Compile Include="Email2CodePage.cs" />
+    <Compile Include="EmailCodePage.cs" />
+    <Compile Include="FolderHierarchyCodePage.cs" />
+    <Compile Include="GALCodePage.cs" />
+    <Compile Include="ItemEstimateCodePage.cs" />
+    <Compile Include="ItemOperationsCodePage.cs" />
+    <Compile Include="MeetingResponseCodePage.cs" />
+    <Compile Include="MoveCodePage.cs" />
+    <Compile Include="NotesCodePage.cs" />
+    <Compile Include="PingCodePage.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProvisionCodePage.cs" />
+    <Compile Include="ResolveRecipientsCodePage.cs" />
+    <Compile Include="SearchCodePage.cs" />
+    <Compile Include="SettingsCodePage.cs" />
+    <Compile Include="TasksCodePage.cs" />
+    <Compile Include="ValidateCertCodePage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WBXML\WBXML.csproj">
+      <Project>{1CD675A0-2E0A-4818-AB33-4A5648DB46C8}</Project>
+      <Name>WBXML</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
