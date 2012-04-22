@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Johan de Koning (johan@johandekoning.nl)")]
 [assembly: AssemblyProduct("SyncMLDemo")]
-[assembly: AssemblyCopyright("Copyright 2009 - Johan de Koning (johan@johandekoning.nl)")]
+[assembly: AssemblyCopyright("Copyright 2012 - Johan de Koning (johan@johandekoning.nl)")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
