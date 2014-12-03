@@ -61,7 +61,7 @@
     <Compile Include="AttributeCodeSpace.cs" />
     <Compile Include="AttributeStart.cs" />
     <Compile Include="AttributeValue.cs" />
-    <Compile Include="IANACharacterSets.cs" />
+    <Compile Include="IanaCharacterSets.cs" />
     <Compile Include="OpaqueDataExpression.cs" />
     <Compile Include="StringTableItem.cs" />
     <Compile Include="Tag.cs" />

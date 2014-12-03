@@ -64,7 +64,7 @@ namespace WBXML
             }
 
             //Get the charset for text encoding
-            Encoding = IANACharacterSets.GetEncoding(GetInt(byteQueue));
+            Encoding = IanaCharacterSets.GetEncoding(GetInt(byteQueue));
 
             var declaration = CreateXmlDeclaration("1.0", Encoding.WebName, null);
             activeNode.AppendChild(declaration);
@@ -269,7 +269,7 @@ namespace WBXML
             bytesList.AddRange(GetMultiByte(TagCodeSpace.GetPublicIdentifier()));
 
             //Encoding
-            bytesList.AddRange(GetMultiByte(IANACharacterSets.GetMIBEnum(Encoding)));
+            bytesList.AddRange(GetMultiByte(IanaCharacterSets.GetMIBEnum(Encoding)));
 
             //String table length
             int stringTableLength = StringTable.Length;
