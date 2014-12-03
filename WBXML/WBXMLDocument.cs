@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Net;
 using System.Text;
 using System.Xml;
 
@@ -52,7 +53,7 @@ namespace WBXML
             var byteQueue = new Queue<byte>(bytes);
 
             //Get the WBXML version number;
-            VersionNumber = (byteQueue.Dequeue()/10.0) + 1.0;
+            VersionNumber = (byteQueue.Dequeue() / 10.0) + 1.0;
 
             //Get the value of the public identifier
             PublicIdentifier = GetInt(byteQueue);
@@ -119,9 +120,17 @@ namespace WBXML
                             }
                             break;
                         case GlobalTokens.Names.ENTITY:
-                            //TODO ENTITY is not implemented yet
-                            var entityLength = GetInt(byteQueue);
-                            break;
+                            var entityValue = GetInt(byteQueue);
+                            var encodedEntity = GetEntity(entityValue);
+                             if (isAttribute)
+                             {
+                                 activeAttribute.InnerXml += encodedEntity;
+                             }
+                             else
+                             {
+                                 activeNode.InnerXml += encodedEntity;
+                             }
+                             break;
                         case GlobalTokens.Names.STR_I:
                             if (isAttribute)
                             {
@@ -148,7 +157,7 @@ namespace WBXML
                         case GlobalTokens.Names.PI:
                             //TODO PI is not implemented yet
                             var piByteList = new List<byte>();
-                            while (byteQueue.Peek() != (byte) GlobalTokens.Names.END)
+                            while (byteQueue.Peek() != (byte)GlobalTokens.Names.END)
                             {
                                 piByteList.Add(byteQueue.Dequeue());
                             }
@@ -263,7 +272,7 @@ namespace WBXML
             var bytesList = new List<byte>();
 
             //Versionnumber
-            bytesList.Add((byte) ((int) ((VersionNumber*10) - 10)));
+            bytesList.Add((byte)((int)((VersionNumber * 10) - 10)));
 
             //Public identifier (currently implemented as unknown)
             bytesList.AddRange(GetMultiByte(TagCodeSpace.GetPublicIdentifier()));
@@ -288,7 +297,7 @@ namespace WBXML
             return bytesList.ToArray();
         }
 
-        private byte[] EncodeNodes(XmlNodeList nodes)
+        private IEnumerable<byte> EncodeNodes(XmlNodeList nodes)
         {
             var bytesList = new List<byte>();
 
@@ -314,8 +323,8 @@ namespace WBXML
                     {
                         if (currentTagCodePage != codePage)
                         {
-                            bytesList.Add((byte) GlobalTokens.Names.SWITCH_PAGE);
-                            bytesList.Add((byte) codePage);
+                            bytesList.Add((byte)GlobalTokens.Names.SWITCH_PAGE);
+                            bytesList.Add((byte)codePage);
                             currentTagCodePage = codePage;
                         }
 
@@ -341,13 +350,13 @@ namespace WBXML
                         {
                             bytesList.AddRange(EncodeNode(attribute));
                         }
-                        bytesList.Add((byte) GlobalTokens.Names.END);
+                        bytesList.Add((byte)GlobalTokens.Names.END);
                     }
 
                     if (hasContent)
                     {
                         bytesList.AddRange(EncodeNodes(node.ChildNodes));
-                        bytesList.Add((byte) GlobalTokens.Names.END);
+                        bytesList.Add((byte)GlobalTokens.Names.END);
                     }
                     break;
                 case XmlNodeType.Text:
@@ -371,7 +380,7 @@ namespace WBXML
                     if (isOpaqueData)
                     {
                         var opaqueDataBytes = GetBytes(node.Value);
-                        bytesList.Add((byte) GlobalTokens.Names.OPAQUE);
+                        bytesList.Add((byte)GlobalTokens.Names.OPAQUE);
                         bytesList.AddRange(GetMultiByte(opaqueDataBytes.Length));
                         bytesList.AddRange(opaqueDataBytes);
                     }
@@ -390,14 +399,14 @@ namespace WBXML
 
                                 if (stringTableIndex == 0)
                                 {
-                                    bytesList.Add((byte) GlobalTokens.Names.STR_T);
+                                    bytesList.Add((byte)GlobalTokens.Names.STR_T);
                                     bytesList.AddRange(GetMultiByte(stringTableItem.Index));
                                     textValue = textValue.Substring(stringTableItem.Value.Length);
                                     continue;
                                 }
                             }
 
-                            bytesList.Add((byte) GlobalTokens.Names.STR_I);
+                            bytesList.Add((byte)GlobalTokens.Names.STR_I);
                             bytesList.AddRange(Encoding.GetBytes(textValue.Substring(0, stringTableIndex)));
                             bytesList.Add(0);
 
@@ -406,8 +415,8 @@ namespace WBXML
                     }
                     break;
                 case XmlNodeType.EntityReference:
-                    bytesList.Add((byte) GlobalTokens.Names.ENTITY);
-                    var reference = (XmlEntityReference) node;
+                    bytesList.Add((byte)GlobalTokens.Names.ENTITY);
+                    var reference = (XmlEntityReference)node;
                     foreach (var stringItem in reference.InnerText.ToCharArray())
                     {
                         bytesList.AddRange(GetMultiByte(stringItem));
@@ -451,7 +460,7 @@ namespace WBXML
 
                                 if (stringTableIndex == 0)
                                 {
-                                    bytesList.Add((byte) GlobalTokens.Names.STR_T);
+                                    bytesList.Add((byte)GlobalTokens.Names.STR_T);
                                     bytesList.AddRange(GetMultiByte(stringTableItem.Index));
 
                                     postAttributeValue = postAttributeValue.Substring(stringTableItem.Value.Length);
@@ -460,7 +469,7 @@ namespace WBXML
                             }
 
                             var firstReferenceIndex = Math.Min(attrValueIndex, stringTableIndex);
-                            bytesList.Add((byte) GlobalTokens.Names.STR_I);
+                            bytesList.Add((byte)GlobalTokens.Names.STR_I);
                             bytesList.AddRange(
                                 Encoding.GetBytes(postAttributeValue.Substring(0, firstReferenceIndex)));
                             bytesList.Add(0);
@@ -508,7 +517,7 @@ namespace WBXML
         {
             if (multiByteValue == 0)
             {
-                return new byte[] {0x00};
+                return new byte[] { 0x00 };
             }
             var multiByteList = new List<byte>();
 
@@ -519,7 +528,7 @@ namespace WBXML
                 {
                     if (IsBitSet(multiByteValue, i))
                     {
-                        byteValue += (int) Math.Pow(2, i);
+                        byteValue += (int)Math.Pow(2, i);
                     }
                 }
 
@@ -528,7 +537,7 @@ namespace WBXML
                     byteValue += 128;
                 }
 
-                multiByteList.Insert(0, (byte) byteValue);
+                multiByteList.Insert(0, (byte)byteValue);
                 multiByteValue >>= 7;
             }
 
@@ -553,8 +562,8 @@ namespace WBXML
             for (var i = 0; i < multiByteList.Count; i++)
             {
                 int byteValue = multiByteList[i];
-                double power = 7*(multiByteList.Count - 1 - i);
-                returnValue += (int) (byteValue*Math.Pow(2, power));
+                double power = 7 * (multiByteList.Count - 1 - i);
+                returnValue += (int)(byteValue * Math.Pow(2, power));
             }
             return returnValue;
         }
@@ -572,17 +581,46 @@ namespace WBXML
         private byte[] GetBytes(string messageValue)
         {
             var byteList = new List<byte>();
-            if (messageValue == null || messageValue.Length%2 == 1)
+            if (messageValue == null || messageValue.Length % 2 == 1)
             {
                 return byteList.ToArray();
             }
 
             for (var i = 0; i < messageValue.Length / 2; i++)
             {
-                byteList.Add((byte) Int32.Parse(messageValue.Substring(i*2, 2), NumberStyles.HexNumber));
+                byteList.Add((byte)Int32.Parse(messageValue.Substring(i * 2, 2), NumberStyles.HexNumber));
             }
 
             return byteList.ToArray();
+        }
+
+        private string GetEntity(int entityValue)
+        {
+            switch (entityValue)
+            {
+                case 38:
+                    return "&amp;";
+                case 60:
+                    return "&lt;";
+                case 62:
+                    return "&gt;";
+                case 160:
+                    return "&nbsp;";
+                case 161:
+                    return "&iexcl;";
+                case 162:
+                    return "&cent;";
+                case 163:
+                    return "&pound;";
+                case 164:
+                    return "&curren;";
+                case 165:
+                    return "&yen;";
+                //TODO: continue from http://www.w3schools.com/charsets/ref_html_entities_4.asp
+                default:
+                    var entity = Convert.ToChar(entityValue).ToString(CultureInfo.InvariantCulture);
+                    return WebUtility.HtmlEncode(entity);
+            }
         }
 
         private static bool IsBitSet(int byteItem, int bitNumber)
