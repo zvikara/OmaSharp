@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual C# Express 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WBXML", "WBXML\WBXML.csproj", "{1CD675A0-2E0A-4818-AB33-4A5648DB46C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncMLDemo", "SyncMLDemo\SyncMLDemo.csproj", "{323A0EF7-2F8F-435D-B2D3-F8D26A517A24}"
