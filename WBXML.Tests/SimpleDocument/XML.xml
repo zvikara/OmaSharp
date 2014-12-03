@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE XYZ [
+  <!ELEMENT XYZ (CARD)+>
+  <!ELEMENT CARD (#PCDATA | BR)*>
+  <!ELEMENT BR EMPTY>
+  <!ENTITY nbsp "&#160;">
+]>
+<XYZ>
+  <CARD> X &amp; Y<BR/> X&nbsp;=&nbsp;1 </CARD>
+</XYZ>
