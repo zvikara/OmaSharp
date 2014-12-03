@@ -1,6 +1,7 @@
 The MIT License (MIT)
 
-Copyright (c) 2014 Zvika Rap
+Copyright (c) 2012 Johan de Koning (johan@johandekoning.nl)
+Copyright (c) 2014 Zvika Rap (zvikara@gmail.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -20,3 +21,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+The WAP Binary XML (WBXML) specification is developed by the Open Mobile 
+Alliance (http://www.openmobilealliance.org/)
+Details about this specification can be found at 
+http://www.openmobilealliance.org/tech/affiliates/wap/wap-192-wbxml-20010725-a.pdf
+
+The ActiveSync WAP Binary XML (MS-ASWBXML) specification is developed by 
+Microsoft (http://www.microsoft.com/)
+Details about this specification can be found at 
+http://msdn.microsoft.com/en-us/library/dd299442.aspx
