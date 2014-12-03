@@ -1,18 +1,16 @@
 ﻿// Encoding sample which can be found inside section 8.2 of the WBXML Specification
-using WBXML;
 
-namespace WBXMLSpecifcationDemo
+namespace WBXML.Tests.ExtendedDocument
 {
-    public class ExtendedCodeSpace : TagCodeSpace
+    public class CodeSpace : TagCodeSpace
     {
-        public ExtendedCodeSpace()
+        public CodeSpace()
         {
             var codePage = new TagCodePage();
             codePage.AddToken(0x05, "CARD");
             codePage.AddToken(0x06, "INPUT");
             codePage.AddToken(0x07, "XYZ");
             codePage.AddToken(0x08, "DO");
-
             AddCodePage(codePage);
         }
 

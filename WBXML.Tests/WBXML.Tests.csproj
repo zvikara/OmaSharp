@@ -44,8 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtendedDocument\AttributeCodeSpace.cs" />
+    <Compile Include="ExtendedDocument\Tests.cs" />
     <Compile Include="ExtensionsMethods.cs" />
-    <Compile Include="ExtendedDocument\ExtendedCodeSpace.cs" />
+    <Compile Include="ExtendedDocument\CodeSpace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleDocument\CodeSpace.cs" />
     <Compile Include="SimpleDocument\Tests.cs" />
@@ -60,7 +62,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ExtendedDocument\ExtendedXML.xml">
+    <Content Include="ExtendedDocument\XML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="SimpleDocument\XML.xml">

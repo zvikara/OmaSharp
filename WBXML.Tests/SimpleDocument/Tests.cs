@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Net;
+﻿using System.IO;
 using System.Text;
 using NUnit.Framework;
 
@@ -10,14 +8,6 @@ namespace WBXML.Tests.SimpleDocument
     [TestFixture]
     public class Tests
     {
-        [Test]
-        public void HtmlEntityEncoding()
-        {
-            const string entity = "&nbsp;";
-            var decoded = WebUtility.HtmlDecode(entity);
-
-        }
-
         [Test]
         public void EncodeAndDecode()
         {
@@ -31,9 +21,13 @@ namespace WBXML.Tests.SimpleDocument
             document.Encoding = Encoding.ASCII;
 
             var bytes = document.GetBytes();
+            //Console.WriteLine(bytes.ToHexString());
             Assert.AreEqual(expectedBytes, bytes.ToHexString());
 
-            var decodedDocument = new WbxmlDocument { TagCodeSpace = new CodeSpace() };
+            var decodedDocument = new WbxmlDocument
+            {
+                TagCodeSpace = new CodeSpace()
+            };
             decodedDocument.LoadBytes(bytes);
 
             if (document.DocumentType != null)
