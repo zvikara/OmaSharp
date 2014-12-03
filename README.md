@@ -1,10 +1,10 @@
 wbxml.net
 =========
-Encoder and decoder for Wireless Binary XML messages.
+Encoder and decoder for [WAP Binary XML](http://en.wikipedia.org/wiki/WBXML) messages.
 
 Forked from [wbxml.codeplex.com](http://wbxml.codeplex.com)
 
-The [WBXML specification](http://www.openmobilealliance.org/tech/affiliates/wap/wap-192-wbxml-20010725-a.pdf) is developed by the [Open Mobile Appliance](http://www.openmobilealliance.org).
+The [WBXML specification](http://www.openmobilealliance.org/tech/affiliates/wap/wap-192-wbxml-20010725-a.pdf) is developed by the [Open Mobile Alliance](http://www.openmobilealliance.org).
 
 WBXML is for example used for data synchronization between mobile device and server based on the [SyncML specification](http://www.syncml.org),
 which is also developed by the Open Mobile Alliance.
