@@ -55,7 +55,7 @@ namespace SyncMLDemo
 
         private static void ExecuteDevInfClientSample()
         {
-            var devInfDocument = new WBXMLDocument();
+            var devInfDocument = new WbxmlDocument();
             devInfDocument.VersionNumber = 1.3;
             devInfDocument.TagCodeSpace = new DevInfCodeSpace();
             devInfDocument.Load("devinf_client.xml");
@@ -64,7 +64,7 @@ namespace SyncMLDemo
             byte[] devInfBytes = devInfDocument.GetBytes();
             Console.WriteLine(PrintHex(devInfBytes));
 
-            var decodeDevInfDocument = new WBXMLDocument();
+            var decodeDevInfDocument = new WbxmlDocument();
             decodeDevInfDocument.TagCodeSpace = new DevInfCodeSpace();
             decodeDevInfDocument.LoadBytes(devInfBytes);
             decodeDevInfDocument.Save("devinf_client_output.xml");
@@ -75,7 +75,7 @@ namespace SyncMLDemo
 
         private static void ExecuteSyncInitializationClientSample()
         {
-            var syncMLDocument = new WBXMLDocument();
+            var syncMLDocument = new WbxmlDocument();
             syncMLDocument.VersionNumber = 1.2;
             syncMLDocument.TagCodeSpace = new SyncMLCodeSpace();
             syncMLDocument.OpaqueDataExpressions.Add(
@@ -86,7 +86,7 @@ namespace SyncMLDemo
             byte[] syncmlBytes = syncMLDocument.GetBytes();
             Console.WriteLine(PrintHex(syncmlBytes));
 
-            var decodeSyncMLDocument = new WBXMLDocument();
+            var decodeSyncMLDocument = new WbxmlDocument();
             decodeSyncMLDocument.TagCodeSpace = new SyncMLCodeSpace();
             decodeSyncMLDocument.LoadBytes(syncmlBytes);
             decodeSyncMLDocument.Save("syncml_example_4_1_output.xml");
@@ -97,7 +97,7 @@ namespace SyncMLDemo
 
         private static void ExecuteDevInfServerSample()
         {
-            var devInfDocument = new WBXMLDocument();
+            var devInfDocument = new WbxmlDocument();
             devInfDocument.VersionNumber = 1.3;
             devInfDocument.TagCodeSpace = new DevInfCodeSpace();
             devInfDocument.Load("devinf_server.xml");
@@ -106,7 +106,7 @@ namespace SyncMLDemo
             byte[] devInfBytes = devInfDocument.GetBytes();
             Console.WriteLine(PrintHex(devInfBytes));
 
-            var decodeDevInfDocument = new WBXMLDocument();
+            var decodeDevInfDocument = new WbxmlDocument();
             decodeDevInfDocument.TagCodeSpace = new DevInfCodeSpace();
             decodeDevInfDocument.LoadBytes(devInfBytes);
             decodeDevInfDocument.Save("devinf_server_output.xml");
@@ -117,7 +117,7 @@ namespace SyncMLDemo
 
         private static void ExecuteSyncInitializationServerSample()
         {
-            var syncMLDocument = new WBXMLDocument();
+            var syncMLDocument = new WbxmlDocument();
             syncMLDocument.VersionNumber = 1.2;
             syncMLDocument.TagCodeSpace = new SyncMLCodeSpace();
             syncMLDocument.OpaqueDataExpressions.Add(
@@ -128,7 +128,7 @@ namespace SyncMLDemo
             byte[] syncmlBytes = syncMLDocument.GetBytes();
             Console.WriteLine(PrintHex(syncmlBytes));
 
-            var decodeSyncMLDocument = new WBXMLDocument();
+            var decodeSyncMLDocument = new WbxmlDocument();
             decodeSyncMLDocument.TagCodeSpace = new SyncMLCodeSpace();
             decodeSyncMLDocument.LoadBytes(syncmlBytes);
             decodeSyncMLDocument.Save("syncml_example_4_2_output.xml");
@@ -139,7 +139,7 @@ namespace SyncMLDemo
 
         private static void ExecuteSendingModificationsToServerSample()
         {
-            var syncMLDocument = new WBXMLDocument();
+            var syncMLDocument = new WbxmlDocument();
             syncMLDocument.VersionNumber = 1.2;
             syncMLDocument.TagCodeSpace = new SyncMLCodeSpace();
             syncMLDocument.Load("syncml_example_5_1.xml");
@@ -148,7 +148,7 @@ namespace SyncMLDemo
             byte[] syncmlBytes = syncMLDocument.GetBytes();
             Console.WriteLine(PrintHex(syncmlBytes));
 
-            var decodeSyncMLDocument = new WBXMLDocument();
+            var decodeSyncMLDocument = new WbxmlDocument();
             decodeSyncMLDocument.TagCodeSpace = new SyncMLCodeSpace();
             decodeSyncMLDocument.LoadBytes(syncmlBytes);
             decodeSyncMLDocument.Save("syncml_example_5_1_output.xml");
@@ -159,7 +159,7 @@ namespace SyncMLDemo
 
         private static void ExecuteSendingModificationsToClientSample()
         {
-            var syncMLDocument = new WBXMLDocument();
+            var syncMLDocument = new WbxmlDocument();
             syncMLDocument.VersionNumber = 1.2;
             syncMLDocument.TagCodeSpace = new SyncMLCodeSpace();
             syncMLDocument.Load("syncml_example_5_2.xml");
@@ -168,7 +168,7 @@ namespace SyncMLDemo
             byte[] syncmlBytes = syncMLDocument.GetBytes();
             Console.WriteLine(PrintHex(syncmlBytes));
 
-            var decodeSyncMLDocument = new WBXMLDocument();
+            var decodeSyncMLDocument = new WbxmlDocument();
             decodeSyncMLDocument.TagCodeSpace = new SyncMLCodeSpace();
             decodeSyncMLDocument.LoadBytes(syncmlBytes);
             decodeSyncMLDocument.Save("syncml_example_5_2_output.xml");
@@ -179,7 +179,7 @@ namespace SyncMLDemo
 
         private static void ExecuteDataUpdateStatusToServerSample()
         {
-            var syncMLDocument = new WBXMLDocument();
+            var syncMLDocument = new WbxmlDocument();
             syncMLDocument.VersionNumber = 1.2;
             syncMLDocument.TagCodeSpace = new SyncMLCodeSpace();
             syncMLDocument.Load("syncml_example_5_3.xml");
@@ -188,7 +188,7 @@ namespace SyncMLDemo
             byte[] syncmlBytes = syncMLDocument.GetBytes();
             Console.WriteLine(PrintHex(syncmlBytes));
 
-            var decodeSyncMLDocument = new WBXMLDocument();
+            var decodeSyncMLDocument = new WbxmlDocument();
             decodeSyncMLDocument.TagCodeSpace = new SyncMLCodeSpace();
             decodeSyncMLDocument.LoadBytes(syncmlBytes);
             decodeSyncMLDocument.Save("syncml_example_5_3_output.xml");
@@ -199,7 +199,7 @@ namespace SyncMLDemo
 
         private static void ExecuteMapAcknowledgementFromServerSample()
         {
-            var syncMLDocument = new WBXMLDocument();
+            var syncMLDocument = new WbxmlDocument();
             syncMLDocument.VersionNumber = 1.2;
             syncMLDocument.TagCodeSpace = new SyncMLCodeSpace();
             syncMLDocument.Load("syncml_example_5_4.xml");
@@ -208,7 +208,7 @@ namespace SyncMLDemo
             byte[] syncmlBytes = syncMLDocument.GetBytes();
             Console.WriteLine(PrintHex(syncmlBytes));
 
-            var decodeSyncMLDocument = new WBXMLDocument();
+            var decodeSyncMLDocument = new WbxmlDocument();
             decodeSyncMLDocument.TagCodeSpace = new SyncMLCodeSpace();
             decodeSyncMLDocument.LoadBytes(syncmlBytes);
             decodeSyncMLDocument.Save("syncml_example_5_4_output.xml");

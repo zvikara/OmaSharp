@@ -9,7 +9,7 @@ namespace WBXMLSpecifcationDemo
     {
         private static void Main(string[] args)
         {
-            var simpleWBXMLDocument = new WBXMLDocument();
+            var simpleWBXMLDocument = new WbxmlDocument();
             simpleWBXMLDocument.Load("SimpleXML.xml");
             simpleWBXMLDocument.VersionNumber = 1.3;
             simpleWBXMLDocument.TagCodeSpace = new SimpleCodeSpace();
@@ -19,14 +19,14 @@ namespace WBXMLSpecifcationDemo
             byte[] simpleBytes = simpleWBXMLDocument.GetBytes();
             Console.WriteLine(PrintHex(simpleBytes));
 
-            var decodeSimpleWBXMLDocument = new WBXMLDocument();
+            var decodeSimpleWBXMLDocument = new WbxmlDocument();
             decodeSimpleWBXMLDocument.TagCodeSpace = new SimpleCodeSpace();
             decodeSimpleWBXMLDocument.LoadBytes(simpleBytes);
 
             Console.WriteLine("Simple: XML output");
             Console.WriteLine(decodeSimpleWBXMLDocument.OuterXml);
 
-            var extendedWBXMLDocument = new WBXMLDocument();
+            var extendedWBXMLDocument = new WbxmlDocument();
             extendedWBXMLDocument.Load("ExtendedXML.xml");
             extendedWBXMLDocument.VersionNumber = 1.3;
             extendedWBXMLDocument.TagCodeSpace = new ExtendedCodeSpace();
@@ -37,7 +37,7 @@ namespace WBXMLSpecifcationDemo
             byte[] extendedBytes = extendedWBXMLDocument.GetBytes();
             Console.WriteLine(PrintHex(extendedBytes));
 
-            var decodeExtendedWBXMLDocument = new WBXMLDocument();
+            var decodeExtendedWBXMLDocument = new WbxmlDocument();
             decodeExtendedWBXMLDocument.TagCodeSpace = new ExtendedCodeSpace();
             decodeExtendedWBXMLDocument.AttributeCodeSpace = new ExtendedAttributeCodeSpace();
             decodeExtendedWBXMLDocument.LoadBytes(extendedBytes);
