@@ -51,6 +51,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleDocument\CodeSpace.cs" />
     <Compile Include="SimpleDocument\Tests.cs" />
+    <Compile Include="WapProvisioning\AttributeCodeSpace.cs" />
+    <Compile Include="WapProvisioning\CodeSpace.cs" />
+    <Compile Include="WapProvisioning\Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WBXML\WBXML.csproj">
@@ -68,6 +71,14 @@
     <Content Include="SimpleDocument\XML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
+    </Content>
+    <Content Include="WapProvisioning\XML - Copy.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WapProvisioning\XML.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup />

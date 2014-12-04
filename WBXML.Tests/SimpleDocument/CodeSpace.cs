@@ -1,6 +1,4 @@
-﻿// Encoding sample which can be found inside section 8.1 of the WBXML Specification
-
-namespace WBXML.Tests.SimpleDocument
+﻿namespace WBXML.Tests.SimpleDocument
 {
     public class CodeSpace : TagCodeSpace
     {

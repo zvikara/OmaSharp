@@ -8,6 +8,7 @@ namespace WBXML.Tests.SimpleDocument
     [TestFixture]
     public class Tests
     {
+        // Encoding sample which can be found inside section 8.1 of the WBXML Specification
         [Test]
         public void EncodeAndDecode()
         {
