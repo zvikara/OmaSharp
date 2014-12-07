@@ -36,13 +36,7 @@ namespace OmaSharp.Tests.ExtendedDocument
             };
             decodedDocument.LoadBytes(bytes);
 
-            if (document.DocumentType != null)
-                document.RemoveChild(document.DocumentType);
-            var xmlNodeList = document.SelectNodes("//comment()");
-            if (xmlNodeList != null)
-                foreach (XmlNode node in xmlNodeList)
-                    if (node.ParentNode != null)
-                        node.ParentNode.RemoveChild(node);
+            document.RemoveCommentsAndDtd();
             Assert.AreEqual(document.ToIndentedString(), decodedDocument.ToIndentedString());
         }
     }

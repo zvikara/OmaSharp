@@ -30,7 +30,6 @@ namespace OmaSharp.WBXML
             Encoding = Encoding.UTF8;
         }
 
-
         public void LoadBytes(byte[] bytes)
         {
             Decode(bytes);

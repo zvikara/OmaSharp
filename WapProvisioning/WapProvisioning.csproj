@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CpDocument.cs" />
     <Compile Include="TagCodePage1.cs" />
     <Compile Include="TagCodePage0.cs" />
     <Compile Include="AttrCodeSpace.cs" />

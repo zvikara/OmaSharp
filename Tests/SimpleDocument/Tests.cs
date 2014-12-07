@@ -32,9 +32,7 @@ namespace OmaSharp.Tests.SimpleDocument
             };
             decodedDocument.LoadBytes(bytes);
 
-            if (document.DocumentType != null)
-                document.RemoveChild(document.DocumentType);
-
+            document.RemoveCommentsAndDtd();
             Assert.AreEqual(document.ToIndentedString(), decodedDocument.ToIndentedString());
         }
     }

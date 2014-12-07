@@ -23,5 +23,15 @@ namespace OmaSharp.Tests
                 return reader.ReadToEnd();
             }
         }
+        public static void RemoveCommentsAndDtd(this XmlDocument doc)
+        {
+            if (doc.DocumentType != null)
+                doc.RemoveChild(doc.DocumentType);
+            var xmlNodeList = doc.SelectNodes("//comment()");
+            if (xmlNodeList == null) return;
+            foreach (XmlNode node in xmlNodeList)
+                if (node.ParentNode != null)
+                    node.ParentNode.RemoveChild(node);
+        }
     }
 }
