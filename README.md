@@ -1,5 +1,5 @@
-SharpOMA
-========
+OMA Sharp
+=========
 The [Open Mobile Alliance](http://www.openmobilealliance.org) specifications implemetated in C#.
 
 Original code forked from [wbxml.codeplex.com](http://wbxml.codeplex.com)
