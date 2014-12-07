@@ -17,7 +17,11 @@ Thanks to Tamir Khason for his ideas written in [his blog](http://khason.net/blo
 
 WapProvisioning
 ---------------
-Encoder and decoder for [WAP Client Provisioning](http://en.wikipedia.org/wiki/WBXML) messages.
+[OMA Client Provisioning](http://en.wikipedia.org/wiki/OMA_Client_Provisioning) device management protocol.
+
+The OMA CP protocol covers WAP provisioning with minimal user interaction, typically over-the-air or via SIM Card.
+
+The current specification of OMA CP is [version 1.1](http://technical.openmobilealliance.org/Technical/technical-information/release-program/current-releases/client-provisioning-v1-1)
 
 SyncML
 ------
