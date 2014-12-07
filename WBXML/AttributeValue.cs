@@ -1,4 +1,4 @@
-﻿namespace WBXML
+﻿namespace OmaSharp.WBXML
 {
     public class AttributeValue
     {

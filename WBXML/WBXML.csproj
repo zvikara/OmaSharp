@@ -8,7 +8,7 @@
     <ProjectGuid>{1CD675A0-2E0A-4818-AB33-4A5648DB46C8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WBXML</RootNamespace>
+    <RootNamespace>OmaSharp.WBXML</RootNamespace>
     <AssemblyName>WBXML</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

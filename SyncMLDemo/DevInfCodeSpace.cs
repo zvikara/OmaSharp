@@ -1,4 +1,4 @@
-﻿using WBXML;
+﻿using OmaSharp.WBXML;
 
 namespace SyncMLDemo
 {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WBXML
+namespace OmaSharp.WBXML
 {
     public class TagCodePage
     {

@@ -1,4 +1,4 @@
-﻿namespace WapProvisioning
+﻿namespace OmaSharp.WapProvisioning
 {
     public class AttrCodeSpace : WBXML.AttributeCodeSpace
     {

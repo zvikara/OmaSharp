@@ -1,4 +1,6 @@
-﻿namespace WBXML.Tests.SimpleDocument
+﻿using OmaSharp.WBXML;
+
+namespace OmaSharp.Tests.SimpleDocument
 {
     public class CodeSpace : TagCodeSpace
     {

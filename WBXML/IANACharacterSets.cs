@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace WBXML
+namespace OmaSharp.WBXML
 {
     public class IanaCharacterSets
     {

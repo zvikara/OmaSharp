@@ -1,6 +1,6 @@
-﻿using WBXML;
+﻿using OmaSharp.WBXML;
 
-namespace WapProvisioning
+namespace OmaSharp.WapProvisioning
 {
     public class AttributeCodePage1 : AttributeCodePage
     {

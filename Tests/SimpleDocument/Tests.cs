@@ -1,8 +1,9 @@
 ﻿using System.IO;
 using System.Text;
 using NUnit.Framework;
+using OmaSharp.WBXML;
 
-namespace WBXML.Tests.SimpleDocument
+namespace OmaSharp.Tests.SimpleDocument
 {
 
     [TestFixture]

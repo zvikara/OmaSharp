@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WBXML
+namespace OmaSharp.WBXML
 {
     public class GlobalTokens
     {

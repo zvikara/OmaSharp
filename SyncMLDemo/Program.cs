@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text;
-using WBXML;
+using OmaSharp.WBXML;
 
 namespace SyncMLDemo
 {

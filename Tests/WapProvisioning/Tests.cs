@@ -1,11 +1,11 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System.Xml;
 using NUnit.Framework;
-using WapProvisioning;
+using OmaSharp.WapProvisioning;
+using OmaSharp.WBXML;
 
-namespace WBXML.Tests.WapProvisioning
+namespace OmaSharp.Tests.WapProvisioning
 {
 
     [TestFixture]

@@ -1,10 +1,10 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System.Xml;
 using NUnit.Framework;
+using OmaSharp.WBXML;
 
-namespace WBXML.Tests.ExtendedDocument
+namespace OmaSharp.Tests.ExtendedDocument
 {
 
     [TestFixture]

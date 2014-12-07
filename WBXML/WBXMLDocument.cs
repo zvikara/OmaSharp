@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Xml;
 
-namespace WBXML
+namespace OmaSharp.WBXML
 {
     public class WbxmlDocument : XmlDocument
     {

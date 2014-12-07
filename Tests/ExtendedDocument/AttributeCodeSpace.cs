@@ -1,4 +1,6 @@
-﻿namespace WBXML.Tests.ExtendedDocument
+﻿using OmaSharp.WBXML;
+
+namespace OmaSharp.Tests.ExtendedDocument
 {
     public class AttributeCodeSpace : WBXML.AttributeCodeSpace
     {

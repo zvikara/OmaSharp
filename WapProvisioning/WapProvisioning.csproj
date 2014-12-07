@@ -7,7 +7,7 @@
     <ProjectGuid>{C1EB3D8B-F08A-4AAD-9B9D-DFDC20EFAF07}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WapProvisioning</RootNamespace>
+    <RootNamespace>OmaSharp.WapProvisioning</RootNamespace>
     <AssemblyName>WapProvisioning</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

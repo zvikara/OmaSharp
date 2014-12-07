@@ -1,6 +1,6 @@
-﻿using WBXML;
+﻿using OmaSharp.WBXML;
 
-namespace WapProvisioning
+namespace OmaSharp.WapProvisioning
 {
     public class TagCodePage0 : TagCodePage
     {

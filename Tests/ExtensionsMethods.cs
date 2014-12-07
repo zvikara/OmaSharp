@@ -2,9 +2,8 @@
 using System.IO;
 using System.Text;
 using System.Xml;
-using System.Xml.Linq;
 
-namespace WBXML.Tests
+namespace OmaSharp.Tests
 {
     public static class ExtensionsMethods
     {
