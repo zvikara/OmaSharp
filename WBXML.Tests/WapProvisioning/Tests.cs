@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using NUnit.Framework;
+using WapProvisioning;
 
 namespace WBXML.Tests.WapProvisioning
 {
@@ -22,7 +23,7 @@ namespace WBXML.Tests.WapProvisioning
             document.LoadXml(xml);
             document.VersionNumber = 1.3;
             document.TagCodeSpace = new CodeSpace();
-            document.AttributeCodeSpace = new AttributeCodeSpace();
+            document.AttributeCodeSpace = new AttrCodeSpace();
             document.StringTable = new StringTable(new[] { "NAP1" });
             document.Encoding = Encoding.UTF8;
 
@@ -33,7 +34,7 @@ namespace WBXML.Tests.WapProvisioning
             var decodedDocument = new WbxmlDocument
             {
                 TagCodeSpace = new CodeSpace(),
-                AttributeCodeSpace = new AttributeCodeSpace()
+                AttributeCodeSpace = new AttrCodeSpace()
             };
             decodedDocument.LoadBytes(bytes);
 

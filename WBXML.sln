@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{9F60D3
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WapProvisioning", "WapProvisioning\WapProvisioning.csproj", "{C1EB3D8B-F08A-4AAD-9B9D-DFDC20EFAF07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{1D935D1D-5E0F-4786-8BA6-076444C4BE00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D935D1D-5E0F-4786-8BA6-076444C4BE00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D935D1D-5E0F-4786-8BA6-076444C4BE00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1EB3D8B-F08A-4AAD-9B9D-DFDC20EFAF07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1EB3D8B-F08A-4AAD-9B9D-DFDC20EFAF07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1EB3D8B-F08A-4AAD-9B9D-DFDC20EFAF07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1EB3D8B-F08A-4AAD-9B9D-DFDC20EFAF07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
