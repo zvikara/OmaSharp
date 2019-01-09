@@ -37,12 +37,11 @@ namespace OmaSharp.Tests.WapProvisioning
             };
             decodedDocument.LoadBytes(bytes);
 
-            document.RemoveCommentsAndDtd();
-            Assert.AreEqual(document.ToIndentedString(), decodedDocument.ToIndentedString());
+            XmlAssert.AreEqual(document, decodedDocument);
         }
 
         [Test]
-        public void Document()
+        public void CpDocument()
         {
             var document = new CpDocument
             {
@@ -57,8 +56,7 @@ namespace OmaSharp.Tests.WapProvisioning
             var decodedDocument = new CpDocument();
             decodedDocument.LoadBytes(bytes);
 
-            document.RemoveCommentsAndDtd();
-            Assert.AreEqual(document.ToIndentedString(), decodedDocument.ToIndentedString());
+            XmlAssert.AreEqual(document, decodedDocument);
         }
     }
 }

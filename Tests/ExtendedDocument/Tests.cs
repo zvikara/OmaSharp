@@ -35,9 +35,7 @@ namespace OmaSharp.Tests.ExtendedDocument
                 AttributeCodeSpace = new AttributeCodeSpace()
             };
             decodedDocument.LoadBytes(bytes);
-
-            document.RemoveCommentsAndDtd();
-            Assert.AreEqual(document.ToIndentedString(), decodedDocument.ToIndentedString());
+            XmlAssert.AreEqual(document, decodedDocument);
         }
     }
 }

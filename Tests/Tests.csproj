@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="XmlAssert.cs" />
     <Compile Include="ExtendedDocument\AttributeCodeSpace.cs" />
     <Compile Include="ExtendedDocument\CodeSpace.cs" />
     <Compile Include="ExtendedDocument\Tests.cs" />
@@ -60,7 +61,6 @@
   <ItemGroup>
     <Content Include="ExtendedDocument\XML.xml" />
     <Content Include="SimpleDocument\XML.xml" />
-    <Content Include="WapProvisioning\XML - Copy.xml" />
     <Content Include="WapProvisioning\XML.xml" />
   </ItemGroup>
   <ItemGroup>
