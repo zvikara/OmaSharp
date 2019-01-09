@@ -15,7 +15,7 @@ namespace OmaSharp.Tests.SimpleDocument
         {
             const string expectedBytes =
                 "03-01-03-00-47-46-03-20-58-20-26-20-59-00-05-03-20-58-00-02-81-20-03-3D-00-02-81-20-03-31-20-00-01-01";
-            var xml = File.ReadAllText(@"SimpleDocument\XML.xml", Encoding.UTF8);
+            var xml = File.ReadAllText(@"Tests\SimpleDocument\XML.xml", Encoding.UTF8);
             var document = new WbxmlDocument();
             document.LoadXml(xml);
             document.VersionNumber = 1.3;
