@@ -14,7 +14,6 @@ namespace OmaSharp.WapProvisioning
             VersionNumber = 1.3;
             TagCodeSpace = new CodeSpace();
             AttributeCodeSpace = new AttrCodeSpace();
-            StringTable = new StringTable(new[] { "NAP1" });
         }
     }
 }

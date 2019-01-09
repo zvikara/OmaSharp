@@ -17,12 +17,12 @@ Thanks to Tamir Khason for his ideas written in [his blog](http://khason.net/blo
 
 WapProvisioning
 ---------------
-[OMA Client Provisioning](http://en.wikipedia.org/wiki/OMA_Client_Provisioning) device management protocol.
+OMA Client Provisioning device management protocol.
 
 The OMA CP protocol covers WAP provisioning with minimal user interaction, typically over-the-air or via SIM Card.
 
-The current specification of OMA CP is [version 1.1](http://technical.openmobilealliance.org/Technical/technical-information/release-program/current-releases/client-provisioning-v1-1)
+The current specification of OMA CP is [version 1.1](http://www.openmobilealliance.org/release/ClientProv/V1_1-20090728-A/OMA-WAP-TS-ProvCont-V1_1-20090728-A.pdf)
 
 SyncML
 ------
-Data synchronization between mobile device and server based on the [SyncML specification](http://www.syncml.org),
+[SyncML](http://en.wikipedia.org/wiki/SyncML) is used for data synchronization between mobile device and server.

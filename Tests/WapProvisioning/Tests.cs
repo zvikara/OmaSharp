@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Text;
-using System.Xml;
 using NUnit.Framework;
 using OmaSharp.WapProvisioning;
 using OmaSharp.WBXML;
@@ -18,12 +17,14 @@ namespace OmaSharp.Tests.WapProvisioning
         [Test]
         public void EncodeAndDecode()
         {
-            var document = new WbxmlDocument();
+            var document = new WbxmlDocument
+            {
+                VersionNumber = 1.3,
+                TagCodeSpace = new CodeSpace(),
+                AttributeCodeSpace = new AttrCodeSpace(),
+                StringTable = new StringTable(new[] { "NAP1" })
+            };
             document.LoadXml(xml);
-            document.VersionNumber = 1.3;
-            document.TagCodeSpace = new CodeSpace();
-            document.AttributeCodeSpace = new AttrCodeSpace();
-            document.StringTable = new StringTable(new[] { "NAP1" });
 
             var bytes = document.GetBytes();
             //Console.WriteLine(bytes.ToHexString());
@@ -43,7 +44,10 @@ namespace OmaSharp.Tests.WapProvisioning
         [Test]
         public void Document()
         {
-            var document = new CpDocument();
+            var document = new CpDocument
+            {
+                StringTable = new StringTable(new[] { "NAP1" })
+            };
             document.LoadXml(xml);
 
             var bytes = document.GetBytes();
