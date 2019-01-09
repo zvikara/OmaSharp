@@ -58,5 +58,24 @@ namespace OmaSharp.Tests.WapProvisioning
 
             XmlAssert.AreEqual(document, decodedDocument);
         }
+
+        [Test]
+        public void CpDocumentGetWslBytes()
+        {
+            const string WslHeader = "01-06-2F-1F-2D-B6-91-81-92";
+            const string MacBytes = "30-42-42-33-42-42-35-35-31-46-30-41-39-33-33-35-39-45-43-32-39-45-36-43-45-41-43-31-34-34-30-45-34-41-36-31-37-34-38-39";
+            const string ExpectedWslBytes = WslHeader + "-" + MacBytes + "-00-" + ExpectedBytes;
+            var document = new CpDocument
+            {
+                StringTable = new StringTable(new[] { "NAP1" })
+            };
+            document.LoadXml(xml);
+            var pin = "1234";
+            var bytes = document.GetWslBytes(pin);
+            Assert.AreEqual(ExpectedWslBytes, bytes.ToHexString());
+
+            var hmacBytes = document.GetHmacSha1(pin);
+            Assert.AreEqual(MacBytes, hmacBytes.ToHexString());
+        }
     }
 }
