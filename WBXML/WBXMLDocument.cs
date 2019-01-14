@@ -31,9 +31,7 @@ namespace OmaSharp.WBXML
         }
 
         public void LoadBytes(byte[] bytes)
-        {
-            Decode(bytes);
-        }
+            => Decode(bytes);
 
         #region Decoder
 
@@ -121,15 +119,15 @@ namespace OmaSharp.WBXML
                         case GlobalTokens.Names.ENTITY:
                             var entityValue = GetInt(byteQueue);
                             var encodedEntity = GetEntity(entityValue);
-                             if (isAttribute)
-                             {
-                                 activeAttribute.InnerXml += encodedEntity;
-                             }
-                             else
-                             {
-                                 activeNode.InnerXml += encodedEntity;
-                             }
-                             break;
+                            if (isAttribute)
+                            {
+                                activeAttribute.InnerXml += encodedEntity;
+                            }
+                            else
+                            {
+                                activeNode.InnerXml += encodedEntity;
+                            }
+                            break;
                         case GlobalTokens.Names.STR_I:
                             if (isAttribute)
                             {
@@ -196,7 +194,7 @@ namespace OmaSharp.WBXML
                             {
                                 opaqueHexList.Add(opaqueByteItem.ToString("X2"));
                             }
-                            activeNode.InnerText = String.Join("", opaqueHexList.ToArray());
+                            activeNode.InnerText = string.Join("", opaqueHexList.ToArray());
                             break;
                     }
                 }
@@ -271,7 +269,7 @@ namespace OmaSharp.WBXML
             var bytesList = new List<byte>();
 
             //Versionnumber
-            bytesList.Add((byte)((int)((VersionNumber * 10) - 10)));
+            bytesList.Add((byte)(10 * VersionNumber - 10));
 
             //Public identifier (currently implemented as unknown)
             bytesList.AddRange(GetMultiByte(TagCodeSpace.GetPublicIdentifier()));
@@ -527,7 +525,7 @@ namespace OmaSharp.WBXML
                 {
                     if (IsBitSet(multiByteValue, i))
                     {
-                        byteValue += (int)Math.Pow(2, i);
+                        byteValue += 1 << i; // 2^i == 1<<i
                     }
                 }
 
@@ -561,8 +559,8 @@ namespace OmaSharp.WBXML
             for (var i = 0; i < multiByteList.Count; i++)
             {
                 int byteValue = multiByteList[i];
-                double power = 7 * (multiByteList.Count - 1 - i);
-                returnValue += (int)(byteValue * Math.Pow(2, power));
+                var power = 7 * (multiByteList.Count - 1 - i);
+                returnValue += byteValue * (1 << power);
             }
             return returnValue;
         }
@@ -587,7 +585,7 @@ namespace OmaSharp.WBXML
 
             for (var i = 0; i < messageValue.Length / 2; i++)
             {
-                byteList.Add((byte)Int32.Parse(messageValue.Substring(i * 2, 2), NumberStyles.HexNumber));
+                byteList.Add(byte.Parse(messageValue.Substring(i * 2, 2), NumberStyles.HexNumber));
             }
 
             return byteList.ToArray();
@@ -615,6 +613,56 @@ namespace OmaSharp.WBXML
                     return "&curren;";
                 case 165:
                     return "&yen;";
+                case 166:
+                    return "&brvbar;";
+                case 167:
+                    return "&sect;";
+                case 168:
+                    return "&uml;";
+                case 169:
+                    return "&copy;";
+                case 170:
+                    return "&ordf;";
+                case 171:
+                    return "&laquo;";
+                case 172:
+                    return "&not;";
+                case 173:
+                    return "&shy;";
+                case 174:
+                    return "&reg;";
+                case 175:
+                    return "&macr;";
+                case 176:
+                    return "&deg;";
+                case 177:
+                    return "&plusmn;";
+                case 178:
+                    return "&sup2;";
+                case 179:
+                    return "&sup3;";
+                case 180:
+                    return "&acute;";
+                case 181:
+                    return "&micro;";
+                case 182:
+                    return "&para;";
+                case 183:
+                    return "&middot;";
+                case 184:
+                    return "&cedil;";
+                case 185:
+                    return "&sup1;";
+                case 186:
+                    return "&ordm;";
+                case 187:
+                    return "&raquo;";
+                case 188:
+                    return "&frac14;";
+                case 189:
+                    return "&frac12;";
+                case 190:
+                    return "&frac34;";
                 //TODO: continue from http://www.w3schools.com/charsets/ref_html_entities_4.asp
                 default:
                     var entity = Convert.ToChar(entityValue).ToString(CultureInfo.InvariantCulture);
@@ -623,9 +671,7 @@ namespace OmaSharp.WBXML
         }
 
         private static bool IsBitSet(int byteItem, int bitNumber)
-        {
-            return ((byteItem & (1 << bitNumber)) == Math.Pow(2, bitNumber));
-        }
+            => (byteItem & (1 << bitNumber)) == Math.Pow(2, bitNumber);
 
         #endregion
     }

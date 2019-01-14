@@ -10,8 +10,11 @@ namespace OmaSharp.Tests
         public static string ToHexString(this byte[] byteArray) 
             => BitConverter.ToString(byteArray);
 
+        public static string ToHexStringCompact(this byte[] byteArray)
+            => byteArray.ToHexString().Replace("-", "");
+
         public static byte[] ToHexStringBytes(this byte[] byteArray)
-            => Encoding.ASCII.GetBytes(byteArray.ToHexString().Replace("-", ""));
+            => Encoding.ASCII.GetBytes(byteArray.ToHexStringCompact());
 
         public static string ToIndentedString(this XmlDocument doc)
         {

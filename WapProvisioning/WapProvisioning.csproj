@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CpDocument.cs" />
+    <Compile Include="CpSmsConcatenator.cs" />
     <Compile Include="ExtensionsMethods.cs" />
+    <Compile Include="ImsiExtensions.cs" />
     <Compile Include="TagCodePage1.cs" />
     <Compile Include="TagCodePage0.cs" />
     <Compile Include="AttrCodeSpace.cs" />
@@ -49,6 +51,7 @@
     <Compile Include="AttributeCodePage0.cs" />
     <Compile Include="CodeSpace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WslSecurity.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WBXML\WBXML.csproj">
