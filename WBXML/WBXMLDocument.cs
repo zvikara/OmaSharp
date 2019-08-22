@@ -313,6 +313,8 @@ namespace OmaSharp.WBXML
             switch (node.NodeType)
             {
                 case XmlNodeType.Element:
+                    if (node.Name == "characteristic")
+                        currentAttributeCodePage = 0;
                     var hasAttributes = node.Attributes.Count > 0;
                     var hasContent = node.HasChildNodes;
                     var codePage = TagCodeSpace.ContainsTag(currentTagCodePage, node.Name);
@@ -420,60 +422,79 @@ namespace OmaSharp.WBXML
                     }
                     break;
                 case XmlNodeType.Attribute:
-                    if (AttributeCodeSpace.GetCodePage(currentAttributeCodePage).ContainsAttributeStart(node.Name,
-                                                                                                        node.Value))
+
+                    var attrCodePage = AttributeCodeSpace.ContainsAttributeStart(
+                        currentAttributeCodePage, node.Name, node.Value);
+                    if (attrCodePage >= 0)
                     {
-                        var attributeStart =
-                            AttributeCodeSpace.GetCodePage(currentAttributeCodePage).GetAttributeStart(node.Name,
-                                                                                                       node.Value);
-                        bytesList.Add(attributeStart.Token);
-
-                        var postAttributeValue = node.Value.Substring(attributeStart.Prefix.Length);
-                        while (postAttributeValue.Length > 0)
+                        if (currentAttributeCodePage != attrCodePage)
                         {
-                            int attrValueIndex = postAttributeValue.Length;
+                            bytesList.Add((byte)GlobalTokens.Names.SWITCH_PAGE);
+                            bytesList.Add((byte)attrCodePage);
+                            currentAttributeCodePage = attrCodePage;
+                        }
+                        if (AttributeCodeSpace.GetCodePage(currentAttributeCodePage).ContainsAttributeStart(node.Name,
+                                                                                                            node.Value))
+                        {
+                            var attributeStart =
+                                AttributeCodeSpace.GetCodePage(currentAttributeCodePage).GetAttributeStart(node.Name,
+                                                                                                           node.Value);
+                            bytesList.Add(attributeStart.Token);
 
-                            if (
-                                AttributeCodeSpace.GetCodePage(currentAttributeCodePage).ContainsAttributeValue(
-                                    postAttributeValue))
+                            var postAttributeValue = node.Value.Substring(attributeStart.Prefix.Length);
+                            while (postAttributeValue.Length > 0)
                             {
-                                var attrValue = AttributeCodeSpace.GetCodePage(currentAttributeCodePage).GetAttributeValue(postAttributeValue);
-                                attrValueIndex = postAttributeValue.IndexOf(attrValue.Value);
+                                int attrValueIndex = postAttributeValue.Length;
 
-                                if (attrValueIndex == 0)
+                                if (
+                                    AttributeCodeSpace.GetCodePage(currentAttributeCodePage).ContainsAttributeValue(
+                                        postAttributeValue))
                                 {
-                                    bytesList.Add(attrValue.Token);
-                                    postAttributeValue = postAttributeValue.Substring(attrValue.Value.Length);
-                                    continue;
+                                    var attrValue = AttributeCodeSpace.GetCodePage(currentAttributeCodePage).GetAttributeValue(postAttributeValue);
+                                    attrValueIndex = postAttributeValue.IndexOf(attrValue.Value);
+
+                                    if (attrValueIndex == 0)
+                                    {
+                                        bytesList.Add(attrValue.Token);
+                                        postAttributeValue = postAttributeValue.Substring(attrValue.Value.Length);
+                                        continue;
+                                    }
                                 }
-                            }
 
-                            var stringTableIndex = postAttributeValue.Length;
+                                var stringTableIndex = postAttributeValue.Length;
 
-                            if (StringTable.ContainsString(postAttributeValue))
-                            {
-                                var stringTableItem = StringTable.GetString(postAttributeValue);
-                                stringTableIndex = postAttributeValue.IndexOf(stringTableItem.Value);
-
-                                if (stringTableIndex == 0)
+                                if (StringTable.ContainsString(postAttributeValue))
                                 {
-                                    bytesList.Add((byte)GlobalTokens.Names.STR_T);
-                                    bytesList.AddRange(GetMultiByte(stringTableItem.Index));
+                                    var stringTableItem = StringTable.GetString(postAttributeValue);
+                                    stringTableIndex = postAttributeValue.IndexOf(stringTableItem.Value);
 
-                                    postAttributeValue = postAttributeValue.Substring(stringTableItem.Value.Length);
-                                    continue;
+                                    if (stringTableIndex == 0)
+                                    {
+                                        bytesList.Add((byte)GlobalTokens.Names.STR_T);
+                                        bytesList.AddRange(GetMultiByte(stringTableItem.Index));
+
+                                        postAttributeValue = postAttributeValue.Substring(stringTableItem.Value.Length);
+                                        continue;
+                                    }
                                 }
+
+                                var firstReferenceIndex = Math.Min(attrValueIndex, stringTableIndex);
+                                bytesList.Add((byte)GlobalTokens.Names.STR_I);
+                                bytesList.AddRange(
+                                    Encoding.GetBytes(postAttributeValue.Substring(0, firstReferenceIndex)));
+                                bytesList.Add(0);
+
+                                postAttributeValue = postAttributeValue.Substring(firstReferenceIndex);
                             }
-
-                            var firstReferenceIndex = Math.Min(attrValueIndex, stringTableIndex);
-                            bytesList.Add((byte)GlobalTokens.Names.STR_I);
-                            bytesList.AddRange(
-                                Encoding.GetBytes(postAttributeValue.Substring(0, firstReferenceIndex)));
-                            bytesList.Add(0);
-
-                            postAttributeValue = postAttributeValue.Substring(firstReferenceIndex);
                         }
                     }
+                    else
+                    {
+                        //TODO: unknown attribute
+                    }
+
+
+
                     break;
             }
 

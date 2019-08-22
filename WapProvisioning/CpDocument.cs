@@ -38,9 +38,12 @@ namespace OmaSharp.WapProvisioning
                 var nameAttr = CreateAttribute("name");
                 nameAttr.Value = name;
                 parm.Attributes.Append(nameAttr);
-                var valueAttr = CreateAttribute("value");
-                valueAttr.Value = value;
-                parm.Attributes.Append(valueAttr);
+                if (!string.IsNullOrEmpty(value))
+                {
+                    var valueAttr = CreateAttribute("value");
+                    valueAttr.Value = value;
+                    parm.Attributes.Append(valueAttr);
+                }
                 characteristic.AppendChild(parm);
             }
             wapProvisioningDoc.AppendChild(characteristic);

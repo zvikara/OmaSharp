@@ -72,6 +72,21 @@ namespace OmaSharp.WBXML
             return false;
         }
 
+        public virtual bool ContainsAttribute(string name, string attributeValue)
+        {
+            if (attrStartNameDictionary.ContainsKey(name))
+            {
+                foreach (string value in attrStartNameDictionary[name].Keys)
+                {
+                    if (attributeValue == value)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         public virtual bool ContainsAttributeValue(byte token)
         {
             if (token >= 128)
