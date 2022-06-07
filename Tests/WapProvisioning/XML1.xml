@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE wap-provisioningdoc PUBLIC "-//WAPFORUM//DTD PROV 1.0//EN" "http://www.wapforum.org/DTD/prov.dtd">
+<wap-provisioningdoc version='1.0'>
+  <characteristic type="BOOTSTRAP">
+    <parm name="NAME" value="Internet MMS XDA"/>
+    <parm name="PROXY-ID" value="Proxy1"/>
+  </characteristic>
+  <characteristic type="PXLOGICAL">
+    <parm name="PROXY-ID" value="Proxy1"/>
+    <parm name="NAME" value="Cellcom MMS"/>
+    <parm name="STARTPAGE" value="http://icellcom.co.il/"/>
+    <characteristic type="PXPHYSICAL">
+      <parm name="PHYSICAL-PROXY-ID" value="PhysicalProxy1"/>
+      <parm name="PXADDR" value="vwapm2.ain.co.il"/>
+      <parm name="PXADDRTYPE" value="IPV4"/>
+      <parm name="TO-NAPID" value="MMS"/>
+      <characteristic type="PORT">
+        <parm name="PORTNBR" value="8080"/>
+      </characteristic>
+    </characteristic>
+  </characteristic>
+  <characteristic type="NAPDEF">
+    <parm name="NAPID" value="MMS"/>
+    <parm name="BEARER" value="GSM-GPRS"/>
+    <parm name="NAME" value="Cellcom MMS"/>
+    <parm name="NAP-ADDRESS" value="mms"/>
+    <parm name="NAP-ADDRTYPE" value="APN"/>
+  </characteristic>
+  <characteristic type="NAPDEF">
+    <parm name="NAPID" value="INTERNET"/>
+    <parm name="BEARER" value="GSM-GPRS"/>
+    <parm name="NAME" value="Cellcom Internet XDA"/>
+    <parm name="NAP-ADDRESS" value="XDA"/>
+    <parm name="NAP-ADDRTYPE" value="APN"/>
+  </characteristic>
+  <characteristic type="APPLICATION">
+    <parm name="APPID" value="w2"/>
+    <parm name="TO-NAPID" value="INTERNET"/>
+    <characteristic type="RESOURCE">
+      <parm name="URI" value=" "/>
+      <parm name="STARTPAGE" />
+    </characteristic>
+  </characteristic>
+  <characteristic type="APPLICATION">
+    <parm name="APPID" value="w4"/>
+    <parm name="TO-PROXY" value="Proxy1"/>
+    <parm name="TO-NAPID" value="MMS"/>
+    <parm name="ADDR" value="http://mms.cellcom.co.il"/>
+  </characteristic>
+</wap-provisioningdoc>

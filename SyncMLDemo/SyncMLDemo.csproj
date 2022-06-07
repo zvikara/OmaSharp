@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SyncMLDemo</RootNamespace>
     <AssemblyName>SyncMLDemo</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -63,12 +63,6 @@
     <Compile Include="SyncMLCodeSpace.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WBXML\WBXML.csproj">
-      <Project>{1CD675A0-2E0A-4818-AB33-4A5648DB46C8}</Project>
-      <Name>WBXML</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="devinf_client.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -108,6 +102,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WapProvisioning\WapProvisioning.csproj">
+      <Project>{2b2087cf-1a88-48f3-bde6-65b42581c415}</Project>
+      <Name>WapProvisioning</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WBXML\WBXML.csproj">
+      <Project>{e23a69e9-0c6c-466f-ba96-0b9b9be142bf}</Project>
+      <Name>WBXML</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
